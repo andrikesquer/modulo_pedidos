@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:requisiciones/presentation/screens/punto_venta/pedidos/widgets/pedidos_widgets.dart';
+import 'package:requisiciones/presentation/widgets/custom_end_drawer.dart';
 
 class PedidosScreen extends StatefulWidget {
   const PedidosScreen({super.key});
 
   @override
-  _PedidosScreenState createState() => _PedidosScreenState();
+  PedidosScreenState createState() => PedidosScreenState();
 }
 
-class _PedidosScreenState extends State<PedidosScreen> {
+class PedidosScreenState extends State<PedidosScreen> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -18,10 +19,12 @@ class _PedidosScreenState extends State<PedidosScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var theme = Theme.of(context).colorScheme;
+    final ColorScheme theme = Theme.of(context).colorScheme;
 
     return Scaffold(
+      key: scaffoldKey,
       appBar: PedidosAppBar(scaffoldKey: scaffoldKey, theme: theme),
+      endDrawer: PedidosEndDrawer(theme: theme),
     );
   }
 }

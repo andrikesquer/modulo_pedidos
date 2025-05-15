@@ -21,7 +21,7 @@ class PedidosAppBar extends ConsumerWidget implements PreferredSizeWidget {
       ),
       actions: [
         IconButton(
-          tooltip: 'Buscar/agregar requisición',
+          tooltip: 'Menú de Opciones',
           icon: Icon(Icons.more_vert),
           onPressed: () {
             scaffoldKey.currentState!.openEndDrawer();
