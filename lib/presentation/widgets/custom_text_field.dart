@@ -30,7 +30,7 @@ class CustomTextField extends StatelessWidget {
       decoration: InputDecoration(
         labelText: content,
         border: OutlineInputBorder(),
-        prefixIcon: Icon(Icons.search),
+        // prefixIcon: Icon(Icons.search),
         hintText: content,
         suffixIcon: IconButton(onPressed: () {
           textEditingController.clear();
