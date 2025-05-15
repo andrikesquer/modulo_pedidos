@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:requisiciones/presentation/screens/requisiciones/widgets/busqueda_articulos/widgets/busqueda_articulos_action_buttons.dart';
+import 'package:requisiciones/presentation/screens/operativo/requisiciones/widgets/busqueda_articulos/widgets/busqueda_articulos_action_buttons.dart';
 import 'package:requisiciones/presentation/widgets/custom_text_field.dart';
 
 class ModalBusquedaArticulos extends StatefulWidget {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:requisiciones/presentation/screens/requisiciones/widgets/requisiciones_widgets.dart';
+import 'package:requisiciones/presentation/screens/operativo/requisiciones/widgets/requisiciones_widgets.dart';
 import 'package:requisiciones/presentation/widgets/custom_drawer.dart';
 import 'package:requisiciones/presentation/widgets/custom_drop_down_menu.dart';
 

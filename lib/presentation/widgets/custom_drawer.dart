@@ -44,11 +44,11 @@ class CustomDrawer extends ConsumerWidget {
               },
             ),
             ListTile(
-              leading: Icon(Icons.sell_outlined),
-              title: Text('Requisiciones'),
+              leading: Icon(Icons.shopping_cart_outlined),
+              title: Text('Punto de Venta'),
               iconColor: theme.primary,
               onTap: () {
-                context.go("/requisiciones");
+                context.go("/punto_venta");
               },
             ),
             Divider(color: theme.primary),

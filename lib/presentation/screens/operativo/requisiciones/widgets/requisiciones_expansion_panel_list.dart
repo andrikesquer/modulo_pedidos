@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:requisiciones/data/models/articulo_model.dart';
 import 'package:requisiciones/data/models/articulo_venta_model.dart';
 import 'package:requisiciones/data/models/requisicion_model.dart';
-import 'package:requisiciones/presentation/screens/requisiciones/widgets/cantidad_pendiente_row.dart';
 
 class RequisicionesExpansionPanelList extends StatefulWidget {
   const RequisicionesExpansionPanelList({super.key});

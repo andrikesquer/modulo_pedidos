@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:requisiciones/presentation/screens/requisiciones/widgets/busqueda_articulos/modal_busqueda_articulos.dart';
+import 'package:requisiciones/presentation/screens/operativo/requisiciones/widgets/busqueda_articulos/modal_busqueda_articulos.dart';
 
 class CustomSearchBar extends StatelessWidget {
   final ColorScheme theme;

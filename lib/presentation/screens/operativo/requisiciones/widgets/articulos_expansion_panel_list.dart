@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:requisiciones/data/models/articulo_model.dart';
-import 'package:requisiciones/presentation/screens/requisiciones/widgets/cantidad_pendiente_row.dart';
+import 'package:requisiciones/presentation/screens/operativo/requisiciones/widgets/cantidad_pendiente_row.dart';
 
 class ArticulosExpansionPanelList extends StatefulWidget {
   const ArticulosExpansionPanelList({super.key});

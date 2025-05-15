@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:requisiciones/presentation/screens/requisiciones/widgets/almacenes/almacen_card.dart';
+import 'package:requisiciones/presentation/screens/operativo/requisiciones/widgets/almacenes/almacen_card.dart';
 
 class AlmacenesGrid extends ConsumerWidget {
   final List<String> almacenes;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:requisiciones/presentation/screens/requisiciones/nueva_requisicion/nueva_requisicion_form.dart';
+import 'package:requisiciones/presentation/screens/operativo/requisiciones/nueva_requisicion/nueva_requisicion_form.dart';
 import 'package:requisiciones/presentation/widgets/custom_drop_down_menu.dart';
 
 class RequisicionesEndDrawer extends ConsumerWidget {
