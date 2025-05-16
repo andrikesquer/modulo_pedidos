@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:requisiciones/presentation/screens/operativo/requisiciones/widgets/busqueda_articulos/widgets/busqueda_articulos_action_buttons.dart';
+import 'package:requisiciones/presentation/widgets/custom_action_buttons.dart';
 import 'package:requisiciones/presentation/widgets/custom_text_field.dart';
 
 class ModalBusquedaArticulos extends StatefulWidget {
@@ -29,6 +29,25 @@ class _ModalBusquedaArticulosState extends State<ModalBusquedaArticulos> {
 
   @override
   Widget build(BuildContext context) {
+    List<FloatingActionButton> buttons = [
+      FloatingActionButton(
+        elevation: 4,
+        tooltip: 'Cancelar',
+        onPressed: () {
+          Navigator.pop(context);
+        },
+        child: Icon(Icons.close, color: _theme.primary),
+      ),
+      FloatingActionButton(
+        elevation: 4,
+        tooltip: 'Buscar Artículo',
+        onPressed: () {
+          Navigator.pop(context);
+        },
+        child: Icon(Icons.search, color: _theme.primary),
+      ),
+    ];
+
     return Scaffold(
       backgroundColor: _theme.onPrimary,
       appBar: AppBar(
@@ -207,7 +226,7 @@ class _ModalBusquedaArticulosState extends State<ModalBusquedaArticulos> {
       ),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(15),
-        child: BusquedaArticulosActionButtons(theme: _theme),
+        child: CustomActionButtons(theme: _theme, buttons: buttons),
       ),
     );
   }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:requisiciones/data/models/route_card_model.dart';
 import 'package:requisiciones/presentation/screens/operativo/widgets/operativo_widgets.dart';
 import 'package:requisiciones/presentation/widgets/custom_drawer.dart';
-import 'package:requisiciones/presentation/widgets/routes/routes_menu_widget.dart';
+import 'package:requisiciones/presentation/widgets/navigation/routes_menu_widget.dart';
 
 class OperativoScreen extends StatefulWidget {
   const OperativoScreen({super.key});

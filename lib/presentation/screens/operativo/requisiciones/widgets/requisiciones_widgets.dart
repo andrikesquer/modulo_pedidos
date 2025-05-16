@@ -1,9 +1,6 @@
-export 'almacenes/almacen_card.dart';
-export 'almacenes/almacenes_grid.dart';
 export 'articulos_expansion_panel_list.dart';
 export 'cantidad_pendiente_row.dart';
-export 'custom_search_bar.dart';
-export 'busqueda_articulos/modal_busqueda_articulos.dart';
+export '../../../../widgets/articulos/articulos_search_bar.dart';
 export 'requisiciones_app_bar.dart';
 export 'requisiciones_end_drawer.dart';
 export 'requisiciones_expansion_panel_list.dart';

@@ -32,9 +32,12 @@ class CustomTextField extends StatelessWidget {
         border: OutlineInputBorder(),
         // prefixIcon: Icon(Icons.search),
         hintText: content,
-        suffixIcon: IconButton(onPressed: () {
-          textEditingController.clear();
-        }, icon: Icon(Icons.clear)),
+        suffixIcon: IconButton(
+          onPressed: () {
+            textEditingController.clear();
+          },
+          icon: Icon(Icons.clear),
+        ),
         iconColor: theme.primary,
       ),
     );

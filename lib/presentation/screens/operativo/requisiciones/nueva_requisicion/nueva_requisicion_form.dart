@@ -34,7 +34,7 @@ class _NuevaRequisicionFormState extends State<NuevaRequisicionForm> {
               TotalesCard(),
               AlmacenesCard(),
               ObservacionesTextField(),
-              CustomSearchBar(theme: theme),
+              ArticulosSearchBar(theme: theme),
               ArticulosExpansionPanelList(),
             ],
           ),

@@ -1,14 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:requisiciones/presentation/screens/operativo/requisiciones/widgets/almacenes/almacen_card.dart';
+import 'almacen_card.dart';
 
 class AlmacenesGrid extends ConsumerWidget {
-  final List<String> almacenes;
+  const AlmacenesGrid({super.key, required this.theme});
 
-  const AlmacenesGrid({super.key, required this.almacenes});
+  final ColorScheme theme;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final List<String> almacenes = [
+      'REFRI-VICENTE',
+      'REFRI-GOMEZ',
+      'REFRI-TORRES',
+      'REFRI-CHIHUAHUA-TEC',
+      'REFRI-TORRES',
+    ];
+
     return GridView.builder(
       itemCount: almacenes.length,
       scrollDirection: Axis.horizontal,
@@ -18,7 +26,7 @@ class AlmacenesGrid extends ConsumerWidget {
         crossAxisSpacing: 5,
       ),
       itemBuilder: (BuildContext context, int index) {
-        return AlmacenCard(almacen: almacenes[index]);
+        return AlmacenCard(theme: theme, alm: almacenes[index]);
       },
     );
   }

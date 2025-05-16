@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:requisiciones/data/models/route_card_model.dart';
-import 'package:requisiciones/presentation/widgets/routes/route_card_widget.dart';
+import 'package:requisiciones/presentation/widgets/navigation/route_card_widget.dart';
 
 class RoutesMenu extends StatelessWidget {
   const RoutesMenu({
