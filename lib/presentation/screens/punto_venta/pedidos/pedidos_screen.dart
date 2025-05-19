@@ -67,7 +67,7 @@ class PedidosScreenState extends State<PedidosScreen> {
                   actions: searchBarActions,
                   inputController: inputController,
                 ),
-                PedidosExpansionPanelList(),
+                PedidosExpansionPanelList(theme: theme),
               ],
             ),
           ),

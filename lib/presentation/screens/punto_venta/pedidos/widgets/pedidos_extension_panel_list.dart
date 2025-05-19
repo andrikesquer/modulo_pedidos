@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:requisiciones/data/models/articulo_model.dart';
-import 'package:requisiciones/data/models/articulo_venta_model.dart';
-import 'package:requisiciones/data/models/requisicion_model.dart';
+import 'package:requisiciones/data/models/pedido_model.dart';
 
 class PedidosExpansionPanelList extends StatefulWidget {
-  const PedidosExpansionPanelList({super.key});
+  const PedidosExpansionPanelList({super.key, required this.theme});
+
+  final ColorScheme theme;
 
   @override
   State<PedidosExpansionPanelList> createState() =>
@@ -12,43 +12,52 @@ class PedidosExpansionPanelList extends StatefulWidget {
 }
 
 class _PedidosExpansionPanelListState extends State<PedidosExpansionPanelList> {
-  final Articulo articulo = Articulo(
-    codigo: 6666,
-    nombre: 'TUBO CU FLEX 1 1/8 P/REFRIGERACIÓN',
-    marca: 'MUELLER',
-    numeroParte: '7425M',
-    factor: 0,
-  );
+  late final ColorScheme _theme;
 
-  late final ArticuloVenta artVenta = ArticuloVenta(
-    art: articulo,
-    unidad: 'MTS',
-    cantidad: 1,
-    cantidadAuxiliar: 0,
-    pendiente: 0,
-    pendienteAuxiliar: 0,
-  );
+  @override
+  void initState() {
+    super.initState();
+    _theme = widget.theme;
+  }
 
-  late final List<ArticuloVenta> artsVenta = [artVenta];
+  final List<Pedido> pedidos = [
+    Pedido(
+      noPedido: 15550,
+      requisicion: 11418,
+      cliente: 'Cliente',
+      vendedor: 'Vendedor',
+      status: 'PENDIENTE',
+      almacen: 'REFRI GÓMEZ',
+      paridad: 0,
+      fechaMovimiento: '05/05/2025',
+      fechaCancelacion: '05/05/2025',
+      fechaRegistro: '05/05/2025',
+      fechaInicioC: '05/05/2025',
+      fechaFinC: '05/05/2025',
+      fechaFinOC: '05/05/2025',
+    ),
+    Pedido(
+      noPedido: 16660,
+      requisicion: 12418,
+      cliente: 'Cliente 2',
+      vendedor: 'Vendedor 2',
+      status: 'PENDIENTE',
+      almacen: 'REFRI VICENTE',
+      paridad: 8000,
+      fechaMovimiento: '06/05/2025',
+      fechaCancelacion: '06/05/2025',
+      fechaRegistro: '06/05/2025',
+      fechaInicioC: '06/05/2025',
+      fechaFinC: '06/05/2025',
+      fechaFinOC: '06/05/2025',
+    ),
+  ];
 
-  late final Requisicion req = Requisicion(
-    noRequisicion: 11418,
-    almacenEnvia: '1. REFRI-VICENTE',
-    almacenRecibe: '1. REFRI-GOMEZ',
-    fecha: '05/05/2025',
-    estado: 'PENDIENTE',
-    artsVenta: artsVenta,
-  );
-
-  late final List<Requisicion> requisiciones = [req];
-
-  late final List<NewItem> items = generateItems(requisiciones);
+  late final List<Item> items = generateItems(pedidos);
 
   @override
   Widget build(BuildContext context) {
-    var theme = Theme.of(context).colorScheme;
-
-    return SingleChildScrollView(child: _buildPanel(theme));
+    return SingleChildScrollView(child: _buildPanel(_theme));
   }
 
   TableRow _tableRow(
@@ -82,7 +91,7 @@ class _PedidosExpansionPanelListState extends State<PedidosExpansionPanelList> {
         });
       },
       children:
-          items.map<ExpansionPanel>((NewItem item) {
+          items.map<ExpansionPanel>((Item item) {
             return ExpansionPanel(
               backgroundColor: theme.onPrimary,
               splashColor: theme.primary.withAlpha(10),
@@ -109,7 +118,7 @@ class _PedidosExpansionPanelListState extends State<PedidosExpansionPanelList> {
                               ),
                               children: <TextSpan>[
                                 TextSpan(
-                                  text: '15550',
+                                  text: '${item.pedido.noPedido}',
                                   style: TextStyle(
                                     fontWeight: FontWeight.normal,
                                   ),
@@ -126,7 +135,7 @@ class _PedidosExpansionPanelListState extends State<PedidosExpansionPanelList> {
                               ),
                               children: <TextSpan>[
                                 TextSpan(
-                                  text: item.req.fecha,
+                                  text: item.pedido.fechaMovimiento,
                                   style: TextStyle(
                                     fontWeight: FontWeight.normal,
                                   ),
@@ -149,7 +158,7 @@ class _PedidosExpansionPanelListState extends State<PedidosExpansionPanelList> {
                               ),
                               children: <TextSpan>[
                                 TextSpan(
-                                  text: '${item.req.noRequisicion}',
+                                  text: '${item.pedido.requisicion}',
                                   style: TextStyle(
                                     fontWeight: FontWeight.normal,
                                   ),
@@ -186,7 +195,7 @@ class _PedidosExpansionPanelListState extends State<PedidosExpansionPanelList> {
                           ),
                           children: <TextSpan>[
                             TextSpan(
-                              text: 'Cliente',
+                              text: item.pedido.cliente,
                               style: TextStyle(fontWeight: FontWeight.normal),
                             ),
                           ],
@@ -201,7 +210,7 @@ class _PedidosExpansionPanelListState extends State<PedidosExpansionPanelList> {
                           ),
                           children: <TextSpan>[
                             TextSpan(
-                              text: 'Vendedor',
+                              text: item.pedido.vendedor,
                               style: TextStyle(fontWeight: FontWeight.normal),
                             ),
                           ],
@@ -221,23 +230,43 @@ class _PedidosExpansionPanelListState extends State<PedidosExpansionPanelList> {
                   ),
                   child: Table(
                     children: <TableRow>[
-                      _tableRow(theme, 'Almacén', 'REFRI GÓMEZ', true),
-                      _tableRow(theme, 'Paridad', '0', false),
+                      _tableRow(theme, 'Almacén', item.pedido.almacen, true),
+                      _tableRow(
+                        theme,
+                        'Paridad',
+                        '${item.pedido.paridad}',
+                        false,
+                      ),
                       _tableRow(
                         theme,
                         'Fecha de Cancelación',
-                        '16/05/2025',
+                        item.pedido.fechaCancelacion,
                         true,
                       ),
                       _tableRow(
                         theme,
                         'Fecha de Registro',
-                        '16/05/2025',
+                        item.pedido.fechaRegistro,
                         false,
                       ),
-                      _tableRow(theme, 'Fecha de Inicio C', '16/05/2025', true),
-                      _tableRow(theme, 'Fecha de Fin C', '16/05/2025', false),
-                      _tableRow(theme, 'Fecha Fin OC', '16/05/2025', true),
+                      _tableRow(
+                        theme,
+                        'Fecha de Inicio C',
+                        item.pedido.fechaInicioC,
+                        true,
+                      ),
+                      _tableRow(
+                        theme,
+                        'Fecha de Fin C',
+                        item.pedido.fechaFinC,
+                        false,
+                      ),
+                      _tableRow(
+                        theme,
+                        'Fecha Fin OC',
+                        item.pedido.fechaFinOC,
+                        true,
+                      ),
                     ],
                   ),
                 ),
@@ -249,15 +278,15 @@ class _PedidosExpansionPanelListState extends State<PedidosExpansionPanelList> {
   }
 }
 
-class NewItem {
-  Requisicion req;
+class Item {
+  Pedido pedido;
   bool isExpanded;
 
-  NewItem({required this.req, this.isExpanded = false});
+  Item({required this.pedido, this.isExpanded = false});
 }
 
-List<NewItem> generateItems(List<Requisicion> requisiciones) {
-  return List<NewItem>.generate(requisiciones.length, (int index) {
-    return NewItem(req: requisiciones[index]);
+List<Item> generateItems(List<Pedido> pedidos) {
+  return List<Item>.generate(pedidos.length, (int index) {
+    return Item(pedido: pedidos[index]);
   });
 }
