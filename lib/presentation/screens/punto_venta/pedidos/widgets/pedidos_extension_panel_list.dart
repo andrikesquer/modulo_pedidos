@@ -41,7 +41,7 @@ class _PedidosExpansionPanelListState extends State<PedidosExpansionPanelList> {
       requisicion: 12418,
       cliente: 'Cliente 2',
       vendedor: 'Vendedor 2',
-      status: 'PENDIENTE',
+      status: 'COMPLETADO',
       almacen: 'REFRI VICENTE',
       paridad: 8000,
       fechaMovimiento: '06/05/2025',
@@ -71,14 +71,8 @@ class _PedidosExpansionPanelListState extends State<PedidosExpansionPanelList> {
         color: colored ? theme.primary.withAlpha(30) : Colors.transparent,
       ),
       children: [
-        Padding(
-          padding: EdgeInsets.all(3),
-          child: TableCell(child: Text(left, style: TextStyle(fontSize: 16))),
-        ),
-        Padding(
-          padding: EdgeInsets.all(3),
-          child: TableCell(child: Text(right, style: TextStyle(fontSize: 16))),
-        ),
+        TableCell(child: Text(left, style: TextStyle(fontSize: 16))),
+        TableCell(child: Text(right, style: TextStyle(fontSize: 16))),
       ],
     );
   }
@@ -172,12 +166,18 @@ class _PedidosExpansionPanelListState extends State<PedidosExpansionPanelList> {
                               Icon(
                                 Icons.info_outline,
                                 size: 16,
-                                color: Colors.red,
+                                color:
+                                    item.pedido.status == 'PENDIENTE'
+                                        ? Colors.red
+                                        : Colors.green,
                               ),
                               Text(
-                                'PENDIENTE',
+                                item.pedido.status,
                                 style: TextStyle(
-                                  color: Colors.red,
+                                  color:
+                                      item.pedido.status == 'PENDIENTE'
+                                          ? Colors.red
+                                          : Colors.green,
                                   fontSize: 16,
                                 ),
                               ),
@@ -222,53 +222,46 @@ class _PedidosExpansionPanelListState extends State<PedidosExpansionPanelList> {
               },
               body: Padding(
                 padding: const EdgeInsets.all(10),
-                child: Container(
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    color: theme.primary.withAlpha(15),
-                    borderRadius: BorderRadius.circular(4),
-                  ),
-                  child: Table(
-                    children: <TableRow>[
-                      _tableRow(theme, 'Almacén', item.pedido.almacen, true),
-                      _tableRow(
-                        theme,
-                        'Paridad',
-                        '${item.pedido.paridad}',
-                        false,
-                      ),
-                      _tableRow(
-                        theme,
-                        'Fecha de Cancelación',
-                        item.pedido.fechaCancelacion,
-                        true,
-                      ),
-                      _tableRow(
-                        theme,
-                        'Fecha de Registro',
-                        item.pedido.fechaRegistro,
-                        false,
-                      ),
-                      _tableRow(
-                        theme,
-                        'Fecha de Inicio C',
-                        item.pedido.fechaInicioC,
-                        true,
-                      ),
-                      _tableRow(
-                        theme,
-                        'Fecha de Fin C',
-                        item.pedido.fechaFinC,
-                        false,
-                      ),
-                      _tableRow(
-                        theme,
-                        'Fecha Fin OC',
-                        item.pedido.fechaFinOC,
-                        true,
-                      ),
-                    ],
-                  ),
+                child: Table(
+                  children: <TableRow>[
+                    _tableRow(theme, 'Almacén', item.pedido.almacen, true),
+                    _tableRow(
+                      theme,
+                      'Paridad',
+                      '${item.pedido.paridad}',
+                      false,
+                    ),
+                    _tableRow(
+                      theme,
+                      'Fecha de Cancelación',
+                      item.pedido.fechaCancelacion,
+                      true,
+                    ),
+                    _tableRow(
+                      theme,
+                      'Fecha de Registro',
+                      item.pedido.fechaRegistro,
+                      false,
+                    ),
+                    _tableRow(
+                      theme,
+                      'Fecha de Inicio C',
+                      item.pedido.fechaInicioC,
+                      true,
+                    ),
+                    _tableRow(
+                      theme,
+                      'Fecha de Fin C',
+                      item.pedido.fechaFinC,
+                      false,
+                    ),
+                    _tableRow(
+                      theme,
+                      'Fecha Fin OC',
+                      item.pedido.fechaFinOC,
+                      true,
+                    ),
+                  ],
                 ),
               ),
               isExpanded: item.isExpanded,

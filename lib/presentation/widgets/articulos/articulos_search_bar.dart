@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:requisiciones/presentation/widgets/articulos/modal_busqueda_articulos.dart';
 import 'package:requisiciones/presentation/widgets/custom_search_bar.dart';
 
@@ -45,6 +46,10 @@ class ArticulosSearchBar extends StatelessWidget {
 
     return CustomSearchBar(
       theme: theme,
+      textInputType: TextInputType.number,
+      textInputFormatters: [
+        FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+      ],
       hint: 'Código de Artículo',
       actions: actions,
       inputController: inputController,

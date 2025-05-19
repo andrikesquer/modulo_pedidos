@@ -20,7 +20,15 @@ class _ArticulosExpansionPanelListState
     factor: 0,
   );
 
-  late final List<Articulo> arts = [articulo];
+  final Articulo articulo2 = Articulo(
+    codigo: 6665,
+    nombre: 'TUBO CU FLEX 7/8 P/REFRIGERACIÓN 312892',
+    marca: 'BOHN',
+    numeroParte: '74198B',
+    factor: 0,
+  );
+
+  late final List<Articulo> arts = [articulo, articulo2];
 
   late final List<Item> items = generateNewItems(arts);
 
@@ -48,15 +56,14 @@ class _ArticulosExpansionPanelListState
                 return Padding(
                   padding: const EdgeInsets.all(10),
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     spacing: isExpanded ? 10 : 0,
                     children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.start,
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            '${item.art.codigo}. ',
+                            'Código Artículo: ${item.art.codigo}',
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                           Text(item.art.nombre),

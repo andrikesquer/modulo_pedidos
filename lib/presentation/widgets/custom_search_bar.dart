@@ -1,15 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class CustomSearchBar extends StatelessWidget {
   const CustomSearchBar({
     super.key,
     required this.theme,
+    this.textInputType = TextInputType.text,
+    this.textInputFormatters = const [],
     required this.hint,
     required this.actions,
-    required this.inputController
+    required this.inputController,
   });
 
   final ColorScheme theme;
+
+  final TextInputType textInputType;
+
+  final List<TextInputFormatter> textInputFormatters;
 
   final String hint;
 
@@ -26,6 +33,7 @@ class CustomSearchBar extends StatelessWidget {
       shape: WidgetStatePropertyAll(
         RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       ),
+      keyboardType: textInputType,
       leading: Icon(Icons.search, color: theme.primary),
       hintText: hint,
       trailing: actions.map((Widget widget) => widget).toList(),

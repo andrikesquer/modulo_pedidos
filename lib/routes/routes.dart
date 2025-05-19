@@ -6,7 +6,7 @@ import 'package:requisiciones/presentation/screens/screens.dart';
 final goRouterProvider = Provider<GoRouter>((ref) {
   return GoRouter(
     debugLogDiagnostics: true,
-    initialLocation: '/operativo',
+    initialLocation: '/punto_venta',
     routes: <RouteBase>[
       GoRoute(
         path: '/operativo',
@@ -33,6 +33,14 @@ final goRouterProvider = Provider<GoRouter>((ref) {
             builder:
                 (BuildContext context, GoRouterState state) =>
                     const PedidosScreen(),
+            routes: <RouteBase>[
+              GoRoute(
+                path: 'nuevo_pedido',
+                builder:
+                    (BuildContext context, GoRouterState state) =>
+                        const NuevoPedidoScreen(),
+              ),
+            ],
           ),
         ],
       ),

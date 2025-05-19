@@ -30,7 +30,7 @@ class MenuAlmacenPeriodo extends StatelessWidget {
             Text(
               alm,
               style: TextStyle(
-                fontSize: 16,
+                fontSize: 14,
                 color: Colors.black,
                 fontWeight: FontWeight.normal,
               ),
@@ -48,7 +48,7 @@ class MenuAlmacenPeriodo extends StatelessWidget {
             Text(
               '15/05/2025',
               style: TextStyle(
-                fontSize: 16,
+                fontSize: 14,
                 color: Colors.black,
                 fontWeight: FontWeight.normal,
               ),
@@ -57,7 +57,7 @@ class MenuAlmacenPeriodo extends StatelessWidget {
             Text(
               '16/05/2025',
               style: TextStyle(
-                fontSize: 16,
+                fontSize: 14,
                 color: Colors.black,
                 fontWeight: FontWeight.normal,
               ),

@@ -30,7 +30,7 @@ class CantidadPendienteRow extends StatelessWidget {
                   'Cantidad: ',
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
-                Text('2.0'),
+                Text('1.0'),
               ],
             ),
           ),

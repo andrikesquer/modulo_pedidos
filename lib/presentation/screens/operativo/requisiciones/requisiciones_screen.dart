@@ -33,6 +33,7 @@ class RequisicionesScreen extends StatelessWidget {
         ],
       ),
       floatingActionButton: FloatingActionButton(
+        heroTag: 'btn1',
         tooltip: 'Buscar',
         onPressed: () {},
         child: Icon(Icons.search),

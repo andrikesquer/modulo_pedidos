@@ -25,12 +25,14 @@ class PedidosScreenState extends State<PedidosScreen> {
 
     final List<FloatingActionButton> buttons = [
       FloatingActionButton(
+        heroTag: "btn1",
         elevation: 4,
         tooltip: 'Limpiar Filtros',
         onPressed: () {},
         child: Icon(Icons.cleaning_services, color: theme.primary),
       ),
       FloatingActionButton(
+        heroTag: "btn2",
         elevation: 4,
         tooltip: 'Buscar Pedidos',
         onPressed: () {},

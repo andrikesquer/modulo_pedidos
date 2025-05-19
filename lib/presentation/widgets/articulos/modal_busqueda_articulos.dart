@@ -51,11 +51,11 @@ class _ModalBusquedaArticulosState extends State<ModalBusquedaArticulos> {
     return Scaffold(
       backgroundColor: _theme.onPrimary,
       appBar: AppBar(
-        backgroundColor: _theme.primary,
+        backgroundColor: _theme.onPrimary,
         automaticallyImplyLeading: false,
         title: Text(
           'Búsqueda de Artículos',
-          style: TextStyle(color: _theme.onPrimary),
+          style: TextStyle(color: _theme.primary),
         ),
         centerTitle: true,
       ),
@@ -65,47 +65,42 @@ class _ModalBusquedaArticulosState extends State<ModalBusquedaArticulos> {
           spacing: 10,
           children: [
             // Filtros
-            Container(
-              padding: EdgeInsets.only(left: 15),
-              color: _theme.primary.withAlpha(80),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Icon(Icons.filter_list, color: _theme.primary),
-                  Row(
-                    spacing: 0,
-                    children: [
-                      Checkbox(
-                        checkColor: _theme.primary,
-                        fillColor: WidgetStatePropertyAll(Colors.transparent),
-                        value: _mostrarInactivos,
-                        onChanged: (bool? value) {
-                          setState(() {
-                            _mostrarInactivos = value!;
-                          });
-                        },
-                      ),
-                      Text('Mostrar inactivos'),
-                    ],
-                  ),
-                  Row(
-                    spacing: 0,
-                    children: [
-                      Checkbox(
-                        checkColor: _theme.primary,
-                        fillColor: WidgetStatePropertyAll(Colors.transparent),
-                        value: _precioConIVA,
-                        onChanged: (bool? value) {
-                          setState(() {
-                            _precioConIVA = value!;
-                          });
-                        },
-                      ),
-                      Text('Precio C/IVA'),
-                    ],
-                  ),
-                ],
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Row(
+                  spacing: 0,
+                  children: [
+                    Checkbox(
+                      checkColor: _theme.primary,
+                      fillColor: WidgetStatePropertyAll(Colors.transparent),
+                      value: _mostrarInactivos,
+                      onChanged: (bool? value) {
+                        setState(() {
+                          _mostrarInactivos = value!;
+                        });
+                      },
+                    ),
+                    Text('Mostrar inactivos'),
+                  ],
+                ),
+                Row(
+                  spacing: 0,
+                  children: [
+                    Checkbox(
+                      checkColor: _theme.primary,
+                      fillColor: WidgetStatePropertyAll(Colors.transparent),
+                      value: _precioConIVA,
+                      onChanged: (bool? value) {
+                        setState(() {
+                          _precioConIVA = value!;
+                        });
+                      },
+                    ),
+                    Text('Precio C/IVA'),
+                  ],
+                ),
+              ],
             ),
             // Campos
             Padding(

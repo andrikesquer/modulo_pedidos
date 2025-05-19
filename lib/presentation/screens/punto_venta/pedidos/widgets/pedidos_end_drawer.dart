@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:requisiciones/presentation/widgets/custom_end_drawer.dart';
 
 class PedidosEndDrawer extends ConsumerWidget {
@@ -14,6 +15,7 @@ class PedidosEndDrawer extends ConsumerWidget {
         iconColor: Colors.green,
         title: Text('Nuevo'),
         onTap: () {
+          context.go('/punto_venta/pedidos/nuevo_pedido');
           Navigator.of(context).pop();
         },
       ),
