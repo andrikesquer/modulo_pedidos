@@ -53,7 +53,23 @@ class PedidosScreenState extends State<PedidosScreen> {
 
     return Scaffold(
       key: scaffoldKey,
-      appBar: PedidosAppBar(scaffoldKey: scaffoldKey, theme: theme),
+      appBar: AppBar(
+        backgroundColor: theme.primary,
+        iconTheme: IconThemeData(color: theme.onPrimary),
+        title: Text(
+          'Pedidos',
+          style: TextStyle(color: theme.onPrimary),
+        ),
+        actions: [
+          IconButton(
+            tooltip: 'Menú de Opciones',
+            icon: Icon(Icons.more_vert),
+            onPressed: () {
+              scaffoldKey.currentState!.openEndDrawer();
+            },
+          ),
+        ],
+      ),
       endDrawer: PedidosEndDrawer(theme: theme),
       body: ListView(
         children: [

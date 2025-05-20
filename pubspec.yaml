@@ -38,6 +38,7 @@ dependencies:
   go_router: ^15.1.1 # Navegación por diferentes pantallas
   flutter_secure_storage: ^9.2.4 # Almacenamiento seguro
   json_serializable: ^6.9.5 # Proporciona constructores para manejar JSON
+  expandable: ^5.0.1 # Widget that can be expanded and collapsed by the user
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

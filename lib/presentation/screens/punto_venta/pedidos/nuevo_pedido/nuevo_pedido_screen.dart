@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:requisiciones/presentation/screens/operativo/requisiciones/widgets/requisiciones_widgets.dart';
 import 'package:requisiciones/presentation/screens/punto_venta/pedidos/nuevo_pedido/widgets/confirmation_widget.dart';
+import 'package:requisiciones/presentation/widgets/articulos/articulos_search_bar.dart';
 import 'package:requisiciones/presentation/widgets/custom_check_box.dart';
 import 'package:requisiciones/presentation/widgets/menu_almacenes_periodo/widgets/menu_almacenes.dart';
 export 'package:requisiciones/presentation/screens/punto_venta/pedidos/nuevo_pedido/widgets/nuevo_pedido_widgets.dart';

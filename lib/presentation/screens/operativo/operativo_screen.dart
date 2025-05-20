@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:requisiciones/presentation/screens/operativo/widgets/operativo_widgets.dart';
 import 'package:requisiciones/presentation/widgets/custom_drawer.dart';
 import 'package:requisiciones/presentation/widgets/navigation/route_card.dart';
 import 'package:requisiciones/presentation/widgets/navigation/routes_menu.dart';
@@ -25,7 +24,18 @@ class _OperativoScreenState extends State<OperativoScreen> {
     ];
 
     return Scaffold(
-      appBar: OperativoAppBar(theme: theme),
+      appBar: AppBar(
+        backgroundColor: theme.primary,
+        iconTheme: IconThemeData(color: theme.onPrimary),
+        title: Text('Operaciones', style: TextStyle(color: theme.onPrimary)),
+        actions: [
+          IconButton(
+            tooltip: 'Buscar Opción',
+            icon: Icon(Icons.search),
+            onPressed: () {},
+          ),
+        ],
+      ),
       drawer: CustomDrawer(theme: theme),
       body: Padding(
         padding: const EdgeInsets.all(15),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:requisiciones/presentation/screens/operativo/requisiciones/nueva_requisicion/widgets/nueva_requisicion_widgets.dart';
 import 'package:requisiciones/presentation/screens/operativo/requisiciones/widgets/requisiciones_widgets.dart';
+import 'package:requisiciones/presentation/widgets/articulos/articulos_search_bar.dart';
 
 class NuevaRequisicionForm extends StatefulWidget {
   const NuevaRequisicionForm({super.key});

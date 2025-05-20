@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:requisiciones/presentation/screens/operativo/requisiciones/widgets/requisiciones_widgets.dart';
+import 'package:requisiciones/presentation/widgets/articulos/articulos_search_bar.dart';
 import 'package:requisiciones/presentation/widgets/custom_drawer.dart';
 import 'package:requisiciones/presentation/widgets/menu_almacenes_periodo/menu_almacen_periodo.dart';
 
@@ -14,7 +15,23 @@ class RequisicionesScreen extends StatelessWidget {
 
     return Scaffold(
       key: scaffoldKey,
-      appBar: RequisicionesAppBar(scaffoldKey: scaffoldKey, theme: theme),
+      appBar: AppBar(
+        title: Text(
+          'Requisición de Mercancía',
+          style: TextStyle(color: theme.onPrimary),
+        ),
+        actions: [
+          IconButton(
+            tooltip: 'Buscar/agregar requisición',
+            icon: Icon(Icons.more_vert),
+            onPressed: () {
+              scaffoldKey.currentState!.openEndDrawer();
+            },
+          ),
+        ],
+        backgroundColor: theme.primary,
+        iconTheme: IconThemeData(color: theme.onPrimary),
+      ),
       drawer: CustomDrawer(theme: theme),
       endDrawer: RequisicionesEndDrawer(theme: theme),
       body: ListView(
