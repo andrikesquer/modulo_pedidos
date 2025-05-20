@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:requisiciones/data/models/route_card_model.dart';
-import 'package:requisiciones/presentation/widgets/navigation/route_card_widget.dart';
+import 'package:requisiciones/presentation/widgets/navigation/route_card.dart';
 
 class RoutesMenu extends StatelessWidget {
   const RoutesMenu({
@@ -8,7 +7,7 @@ class RoutesMenu extends StatelessWidget {
     required this.theme,
     required this.menuIcon,
     required this.menuTitle,
-    required this.routeCardsModels,
+    required this.routeCards,
   });
 
   final ColorScheme theme;
@@ -17,7 +16,7 @@ class RoutesMenu extends StatelessWidget {
 
   final String menuTitle;
 
-  final List<RouteCardModel> routeCardsModels;
+  final List<RouteCard> routeCards;
 
   @override
   Widget build(BuildContext context) {
@@ -55,12 +54,7 @@ class RoutesMenu extends StatelessWidget {
           ),
           Column(
             children:
-                routeCardsModels
-                    .map(
-                      (RouteCardModel routeCardModel) =>
-                          RouteCardWidget(routeCardModel: routeCardModel),
-                    )
-                    .toList(),
+                routeCards.map((RouteCard routeCard) => routeCard).toList(),
           ),
         ],
       ),

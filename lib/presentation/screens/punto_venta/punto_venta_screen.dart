@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:requisiciones/data/models/route_card_model.dart';
-import 'package:requisiciones/presentation/screens/punto_venta/widgets/punto_venta_widgets.dart';
 import 'package:requisiciones/presentation/widgets/custom_drawer.dart';
-import 'package:requisiciones/presentation/widgets/navigation/routes_menu_widget.dart';
+import 'package:requisiciones/presentation/widgets/navigation/route_card.dart';
+import 'package:requisiciones/presentation/widgets/navigation/routes_menu.dart';
 
 class PuntoVentaScreen extends StatefulWidget {
   const PuntoVentaScreen({super.key});
@@ -12,13 +11,12 @@ class PuntoVentaScreen extends StatefulWidget {
 }
 
 class _PuntoVentaScreenState extends State<PuntoVentaScreen> {
-
   @override
   Widget build(BuildContext context) {
     final ColorScheme theme = Theme.of(context).colorScheme;
 
-    final List<RouteCardModel> operacionesCardsModels = [
-      RouteCardModel(
+    final List<RouteCard> operacionesRouteCards = [
+      RouteCard(
         location: '/punto_venta/pedidos',
         icon: Icons.shopping_cart_outlined,
         routeName: 'Pedidos',
@@ -26,7 +24,18 @@ class _PuntoVentaScreenState extends State<PuntoVentaScreen> {
     ];
 
     return Scaffold(
-      appBar: PuntoVentaAppBar(theme: theme),
+      appBar: AppBar(
+        backgroundColor: theme.primary,
+        iconTheme: IconThemeData(color: theme.onPrimary),
+        title: Text('Punto de Venta', style: TextStyle(color: theme.onPrimary)),
+        actions: [
+          IconButton(
+            tooltip: 'Buscar opción',
+            icon: Icon(Icons.search),
+            onPressed: () {},
+          ),
+        ],
+      ),
       drawer: CustomDrawer(theme: theme),
       body: Padding(
         padding: const EdgeInsets.all(15),
@@ -36,7 +45,7 @@ class _PuntoVentaScreenState extends State<PuntoVentaScreen> {
               theme: theme,
               menuIcon: Icons.compare_arrows,
               menuTitle: 'Operaciones',
-              routeCardsModels: operacionesCardsModels,
+              routeCards: operacionesRouteCards,
             ),
           ],
         ),

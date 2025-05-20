@@ -1,13 +1,35 @@
-class ClienteModel {
-  final String nombre;
+import 'package:json_annotation/json_annotation.dart';
 
-  final String rSocial;
+part 'cliente_model.g.dart';
 
-  final String RFC;
+@JsonSerializable()
+class Cliente {
+  int id_Cliente;
 
-  ClienteModel({
-    required this.nombre,
-    required this.rSocial,
-    required this.RFC,
-  });
+  String razon_Social;
+
+  String RFC;
+
+  double descuento;
+
+  int NO_Plazo;
+
+  int id_lista;
+
+  String cfdi;
+
+  Cliente(
+      this.id_Cliente,
+      this.razon_Social,
+      this.RFC,
+      this.descuento,
+      this.NO_Plazo,
+      this.id_lista,
+      this.cfdi,
+      );
+
+  factory Cliente.fromJson(Map<String, dynamic> json) =>
+      _$ClienteFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ClienteToJson(this);
 }

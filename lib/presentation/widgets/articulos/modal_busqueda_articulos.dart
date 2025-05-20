@@ -27,6 +27,18 @@ class _ModalBusquedaArticulosState extends State<ModalBusquedaArticulos> {
     _theme = widget.theme;
   }
 
+  final TextEditingController codigoIntController = TextEditingController();
+  final TextEditingController nombreController = TextEditingController();
+  final TextEditingController marcaController = TextEditingController();
+  final TextEditingController familiaController = TextEditingController();
+  final TextEditingController categoriaController = TextEditingController();
+  final TextEditingController tipoArticuloController = TextEditingController();
+  final TextEditingController noParteController = TextEditingController();
+  final TextEditingController codigoBarrasController = TextEditingController();
+  final TextEditingController presentacionController = TextEditingController();
+  final TextEditingController codigoAnteriorController =
+      TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     List<FloatingActionButton> buttons = [
@@ -112,6 +124,7 @@ class _ModalBusquedaArticulosState extends State<ModalBusquedaArticulos> {
                   CustomTextField(
                     theme: _theme,
                     textInputType: TextInputType.number,
+                    textEditingController: codigoIntController,
                     textInputFormatters: [
                       FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
                     ],
@@ -120,6 +133,7 @@ class _ModalBusquedaArticulosState extends State<ModalBusquedaArticulos> {
                   CustomTextField(
                     theme: _theme,
                     textInputType: TextInputType.text,
+                    textEditingController: nombreController,
                     content: 'Nombre',
                   ),
                   Divider(color: _theme.primary.withAlpha(60)),
@@ -131,6 +145,7 @@ class _ModalBusquedaArticulosState extends State<ModalBusquedaArticulos> {
                         child: CustomTextField(
                           theme: _theme,
                           textInputType: TextInputType.text,
+                          textEditingController: marcaController,
                           content: 'Marca',
                         ),
                       ),
@@ -138,6 +153,7 @@ class _ModalBusquedaArticulosState extends State<ModalBusquedaArticulos> {
                         child: CustomTextField(
                           theme: _theme,
                           textInputType: TextInputType.text,
+                          textEditingController: familiaController,
                           content: 'Familia',
                         ),
                       ),
@@ -151,6 +167,7 @@ class _ModalBusquedaArticulosState extends State<ModalBusquedaArticulos> {
                         child: CustomTextField(
                           theme: _theme,
                           textInputType: TextInputType.text,
+                          textEditingController: categoriaController,
                           content: 'Categoría',
                         ),
                       ),
@@ -158,6 +175,7 @@ class _ModalBusquedaArticulosState extends State<ModalBusquedaArticulos> {
                         child: CustomTextField(
                           theme: _theme,
                           textInputType: TextInputType.text,
+                          textEditingController: tipoArticuloController,
                           content: 'Tipo artículo',
                         ),
                       ),
@@ -172,6 +190,7 @@ class _ModalBusquedaArticulosState extends State<ModalBusquedaArticulos> {
                         child: CustomTextField(
                           theme: _theme,
                           textInputType: TextInputType.number,
+                          textEditingController: noParteController,
                           textInputFormatters: [
                             FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
                           ],
@@ -182,6 +201,7 @@ class _ModalBusquedaArticulosState extends State<ModalBusquedaArticulos> {
                         child: CustomTextField(
                           theme: _theme,
                           textInputType: TextInputType.number,
+                          textEditingController: codigoBarrasController,
                           textInputFormatters: [
                             FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
                           ],
@@ -198,6 +218,7 @@ class _ModalBusquedaArticulosState extends State<ModalBusquedaArticulos> {
                         child: CustomTextField(
                           theme: _theme,
                           textInputType: TextInputType.text,
+                          textEditingController: presentacionController,
                           content: 'Presentación',
                         ),
                       ),
@@ -205,6 +226,7 @@ class _ModalBusquedaArticulosState extends State<ModalBusquedaArticulos> {
                         child: CustomTextField(
                           theme: _theme,
                           textInputType: TextInputType.number,
+                          textEditingController: codigoAnteriorController,
                           textInputFormatters: [
                             FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
                           ],

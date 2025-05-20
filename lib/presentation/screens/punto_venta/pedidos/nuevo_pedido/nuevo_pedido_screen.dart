@@ -123,12 +123,12 @@ class _NuevoPedidoScreenState extends State<NuevoPedidoScreen> {
                   theme,
                   'Almacén',
                   TextButton(
-                    style: TextButton.styleFrom(
-                      minimumSize: Size.zero,
-                      padding: EdgeInsets.zero,
-                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      alignment: Alignment.centerLeft,
-                    ),
+                    // style: TextButton.styleFrom(
+                    //   minimumSize: Size.zero,
+                    //   padding: EdgeInsets.zero,
+                    //   tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    //   alignment: Alignment.centerLeft,
+                    // ),
                     child: Text(
                       alm,
                       style: TextStyle(
@@ -203,21 +203,6 @@ class _NuevoPedidoScreenState extends State<NuevoPedidoScreen> {
                 ),
                 tableRow(theme, 'No. de Serie', customTextField(), true),
                 tableRow(theme, 'Orden Compra', customTextField(), false),
-                tableRow(
-                  theme,
-                  'Archivo Orden C.',
-                  IconButton(
-                    onPressed: () {},
-                    icon: Icon(Icons.upload, color: theme.primary),
-                    style: TextButton.styleFrom(
-                      minimumSize: Size.zero,
-                      padding: EdgeInsets.zero,
-                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      alignment: Alignment.center,
-                    ),
-                  ),
-                  true,
-                ),
               ],
             ),
           ),

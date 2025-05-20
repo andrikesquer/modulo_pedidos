@@ -7,24 +7,23 @@ class ConfirmationWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: theme.onPrimary,
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: Text('Pedido Realizado'),
-        centerTitle: true,
-      ),
-      body: Center(
-        child: Column(
-          spacing: 10,
-          children: [
-            Icon(Icons.check_circle_outline, color: Colors.green, size: 50),
-            Text(
-              'Pedido realizado correctamente',
-              style: TextStyle(fontSize: 20),
-            ),
-          ],
-        ),
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        spacing: 10,
+        children: [
+          Icon(Icons.check_circle_outline, color: Colors.green, size: 50),
+          Text(
+            'Pedido realizado correctamente',
+            style: TextStyle(fontSize: 20),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Text('Continuar', style: TextStyle(fontSize: 16)),
+          ),
+        ],
       ),
     );
   }

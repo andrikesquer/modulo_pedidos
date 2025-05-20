@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:requisiciones/data/models/route_card_model.dart';
 import 'package:requisiciones/presentation/screens/operativo/widgets/operativo_widgets.dart';
 import 'package:requisiciones/presentation/widgets/custom_drawer.dart';
-import 'package:requisiciones/presentation/widgets/navigation/routes_menu_widget.dart';
+import 'package:requisiciones/presentation/widgets/navigation/route_card.dart';
+import 'package:requisiciones/presentation/widgets/navigation/routes_menu.dart';
 
 class OperativoScreen extends StatefulWidget {
   const OperativoScreen({super.key});
@@ -16,8 +16,8 @@ class _OperativoScreenState extends State<OperativoScreen> {
   Widget build(BuildContext context) {
     final ColorScheme theme = Theme.of(context).colorScheme;
 
-    final List<RouteCardModel> traspasosCardsModels = [
-      RouteCardModel(
+    final List<RouteCard> operativoRouteCards = [
+      RouteCard(
         location: '/operativo/requisiciones',
         icon: Icons.sell_outlined,
         routeName: 'Requisiciones',
@@ -35,7 +35,7 @@ class _OperativoScreenState extends State<OperativoScreen> {
               theme: theme,
               menuIcon: Icons.compare_arrows,
               menuTitle: 'Traspasos',
-              routeCardsModels: traspasosCardsModels,
+              routeCards: operativoRouteCards,
             ),
           ],
         ),

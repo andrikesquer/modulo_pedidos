@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:requisiciones/presentation/widgets/custom_bottom_menu.dart';
 import 'package:requisiciones/presentation/widgets/custom_drop_down_menu.dart';
+import 'package:requisiciones/presentation/widgets/menu_almacenes_periodo/widgets/fecha_button.dart';
 
 class MenuPeriodo extends StatelessWidget {
   const MenuPeriodo({super.key, required this.theme});
@@ -14,8 +15,6 @@ class MenuPeriodo extends StatelessWidget {
       fontWeight: FontWeight.w400,
       color: theme.primary,
     );
-
-    final String fechaInicial = '09/05/2025';
 
     final List<String> tiposFecha = [
       'Fecha de registro',
@@ -57,34 +56,8 @@ class MenuPeriodo extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 10),
                 child: CustomDropDownMenu(options: tiposFecha),
               ),
-              TextButton.icon(
-                label: Text(
-                  fechaInicial,
-                  style: defaultTextStyle.copyWith(color: Colors.black),
-                ),
-                icon: Icon(Icons.date_range, color: Colors.black),
-                onPressed: () {
-                  showDatePicker(
-                    context: context,
-                    firstDate: DateTime(2015),
-                    lastDate: DateTime.now(),
-                  );
-                },
-              ),
-              TextButton.icon(
-                label: Text(
-                  fechaInicial,
-                  style: defaultTextStyle.copyWith(color: Colors.black),
-                ),
-                icon: Icon(Icons.date_range, color: Colors.black),
-                onPressed: () {
-                  showDatePicker(
-                    context: context,
-                    firstDate: DateTime(2015),
-                    lastDate: DateTime.now(),
-                  );
-                },
-              ),
+              FechaButton(esPrimeraFecha: true),
+              FechaButton(esPrimeraFecha: false),
             ],
           ),
         ],

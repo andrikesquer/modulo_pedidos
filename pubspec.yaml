@@ -37,6 +37,7 @@ dependencies:
   path_provider: ^2.1.5 # Búsqueda de directorios en el sistema de archivos
   go_router: ^15.1.1 # Navegación por diferentes pantallas
   flutter_secure_storage: ^9.2.4 # Almacenamiento seguro
+  json_serializable: ^6.9.5 # Proporciona constructores para manejar JSON
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
