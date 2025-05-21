@@ -17,16 +17,17 @@ class AlmacenCard extends StatelessWidget {
         onTap: () {
           Navigator.pop(context);
         },
-        child: Center(
-          child: Flexible(
-            child: Text(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
               alm,
               style: TextStyle(
                 fontWeight: FontWeight.w600,
                 color: theme.onPrimary,
               ),
             ),
-          ),
+          ],
         ),
       ),
     );

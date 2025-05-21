@@ -38,7 +38,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
                 path: 'nuevo_pedido',
                 builder:
                     (BuildContext context, GoRouterState state) =>
-                        const NuevoPedidoScreen(),
+                        const PedidoScreen(),
               ),
             ],
           ),

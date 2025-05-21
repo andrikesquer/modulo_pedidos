@@ -1,23 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:requisiciones/presentation/screens/operativo/requisiciones/widgets/requisiciones_widgets.dart';
+import 'package:go_router/go_router.dart';
+import 'package:requisiciones/data/models/pedido_model.dart';
 import 'package:requisiciones/presentation/screens/punto_venta/pedidos/nuevo_pedido/widgets/confirmation_widget.dart';
 import 'package:requisiciones/presentation/widgets/articulos/articulos_search_bar.dart';
 import 'package:requisiciones/presentation/widgets/custom_check_box.dart';
 import 'package:requisiciones/presentation/widgets/menu_almacenes_periodo/widgets/menu_almacenes.dart';
+import 'package:requisiciones/presentation/screens/operativo/requisiciones/widgets/articulos_expansion_panel_list.dart';
 export 'package:requisiciones/presentation/screens/punto_venta/pedidos/nuevo_pedido/widgets/nuevo_pedido_widgets.dart';
 
-class NuevoPedidoScreen extends StatefulWidget {
-  const NuevoPedidoScreen({super.key});
+class PedidoScreen extends StatefulWidget {
+  const PedidoScreen({super.key});
 
   @override
-  State<NuevoPedidoScreen> createState() => _NuevoPedidoScreenState();
+  State<PedidoScreen> createState() => _PedidoScreenState();
 }
 
-class _NuevoPedidoScreenState extends State<NuevoPedidoScreen> {
+class _PedidoScreenState extends State<PedidoScreen> {
   int _currentStep = 0;
 
-  TextField customTextField() {
-    return TextField(decoration: InputDecoration(border: OutlineInputBorder()));
+  TextFormField customTextField(bool isEnabled, String? initialValue) {
+    return TextFormField(
+      decoration: InputDecoration(border: OutlineInputBorder()),
+      enabled: isEnabled,
+      initialValue: initialValue,
+    );
   }
 
   final String alm = 'REFRI-GOMEZ';
@@ -77,6 +83,7 @@ class _NuevoPedidoScreenState extends State<NuevoPedidoScreen> {
   @override
   Widget build(BuildContext context) {
     final ColorScheme theme = Theme.of(context).colorScheme;
+    final Pedido? pedido = GoRouterState.of(context).extra as Pedido?;
 
     return Scaffold(
       appBar: AppBar(
@@ -104,7 +111,11 @@ class _NuevoPedidoScreenState extends State<NuevoPedidoScreen> {
                         ElevatedButton(
                           onPressed: details.onStepContinue,
                           child: Text(
-                            _currentStep == 5 ? 'Finalizar' : 'Siguiente',
+                            _currentStep == 5
+                                ? pedido == null
+                                    ? 'Finalizar'
+                                    : 'Cerrar'
+                                : 'Siguiente',
                           ),
                         ),
                       ],
@@ -131,7 +142,7 @@ class _NuevoPedidoScreenState extends State<NuevoPedidoScreen> {
                     //   alignment: Alignment.centerLeft,
                     // ),
                     child: Text(
-                      alm,
+                      pedido == null ? alm : pedido.almacen,
                       style: TextStyle(
                         fontSize: 14,
                         color: Colors.black,
@@ -139,17 +150,67 @@ class _NuevoPedidoScreenState extends State<NuevoPedidoScreen> {
                       ),
                     ),
                     onPressed: () {
-                      mostrarMenu(MenuAlmacenes(theme: theme));
+                      if (pedido == null) {
+                        mostrarMenu(MenuAlmacenes(theme: theme));
+                      }
                     },
                   ),
                   true,
                 ),
-                tableRow(theme, 'Cliente', customTextField(), false),
-                tableRow(theme, 'Vendedor', customTextField(), true),
-                tableRow(theme, 'Sucursal', customTextField(), false),
-                tableRow(theme, 'Atención a', customTextField(), true),
-                tableRow(theme, 'Dirección', customTextField(), false),
-                tableRow(theme, 'Lista de Precios', customTextField(), true),
+                tableRow(
+                  theme,
+                  'Cliente',
+                  customTextField(
+                    pedido?.status == 'FACTURADO' ? false : true,
+                    pedido?.cliente,
+                  ),
+                  false,
+                ),
+                tableRow(
+                  theme,
+                  'Vendedor',
+                  customTextField(
+                    pedido == null ? true : false,
+                    pedido?.vendedor,
+                  ),
+                  true,
+                ),
+                tableRow(
+                  theme,
+                  'Sucursal',
+                  customTextField(
+                    pedido == null ? true : false,
+                    pedido?.sucursal,
+                  ),
+                  false,
+                ),
+                tableRow(
+                  theme,
+                  'Atención a',
+                  customTextField(
+                    pedido == null ? true : false,
+                    pedido?.atencionA,
+                  ),
+                  true,
+                ),
+                tableRow(
+                  theme,
+                  'Dirección',
+                  customTextField(
+                    pedido == null ? true : false,
+                    pedido?.direccion,
+                  ),
+                  false,
+                ),
+                tableRow(
+                  theme,
+                  'Lista de Precios',
+                  customTextField(
+                    pedido == null ? true : false,
+                    pedido?.lista_precios,
+                  ),
+                  true,
+                ),
               ],
             ),
           ),
@@ -202,8 +263,24 @@ class _NuevoPedidoScreenState extends State<NuevoPedidoScreen> {
                   ),
                   false,
                 ),
-                tableRow(theme, 'No. de Serie', customTextField(), true),
-                tableRow(theme, 'Orden Compra', customTextField(), false),
+                tableRow(
+                  theme,
+                  'No. de Serie',
+                  customTextField(
+                    pedido == null ? true : false,
+                    pedido?.noSerie,
+                  ),
+                  true,
+                ),
+                tableRow(
+                  theme,
+                  'Orden Compra',
+                  customTextField(
+                    pedido == null ? true : false,
+                    pedido?.ordenCompra,
+                  ),
+                  false,
+                ),
               ],
             ),
           ),
@@ -221,11 +298,48 @@ class _NuevoPedidoScreenState extends State<NuevoPedidoScreen> {
                   Text('NUEVO', style: TextStyle(color: Colors.red)),
                   false,
                 ),
-                tableRow(theme, 'RFC', customTextField(), true),
-                tableRow(theme, 'Plazo', customTextField(), false),
-                tableRow(theme, 'Descuento', customTextField(), true),
-                tableRow(theme, 'Moneda', customTextField(), false),
-                tableRow(theme, 'Paridad', customTextField(), true),
+                tableRow(
+                  theme,
+                  'RFC',
+                  customTextField(pedido == null ? true : false, pedido?.RFC),
+                  true,
+                ),
+                tableRow(
+                  theme,
+                  'Plazo',
+                  customTextField(
+                    pedido == null ? true : false,
+                    '${pedido?.plazo}',
+                  ),
+                  false,
+                ),
+                tableRow(
+                  theme,
+                  'Descuento',
+                  customTextField(
+                    pedido == null ? true : false,
+                    '${pedido?.descuento}',
+                  ),
+                  true,
+                ),
+                tableRow(
+                  theme,
+                  'Moneda',
+                  customTextField(
+                    pedido == null ? true : false,
+                    pedido?.moneda,
+                  ),
+                  false,
+                ),
+                tableRow(
+                  theme,
+                  'Paridad',
+                  customTextField(
+                    pedido == null ? true : false,
+                    '${pedido?.paridad}',
+                  ),
+                  true,
+                ),
               ],
             ),
           ),
@@ -280,8 +394,24 @@ class _NuevoPedidoScreenState extends State<NuevoPedidoScreen> {
                       ),
                       false,
                     ),
-                    tableRow(theme, 'Campo Addenda', customTextField(), true),
-                    tableRow(theme, 'Observaciones', customTextField(), false),
+                    tableRow(
+                      theme,
+                      'Campo Addenda',
+                      customTextField(
+                        pedido == null ? true : false,
+                        pedido?.campoAddenda,
+                      ),
+                      true,
+                    ),
+                    tableRow(
+                      theme,
+                      'Observaciones',
+                      customTextField(
+                        pedido == null ? true : false,
+                        pedido?.observaciones,
+                      ),
+                      false,
+                    ),
                   ],
                 ),
                 Row(
@@ -337,7 +467,9 @@ class _NuevoPedidoScreenState extends State<NuevoPedidoScreen> {
             });
           } else {
             Navigator.pop(context);
-            modalButtonSheetFullScreen(ConfirmationWidget(theme: theme));
+            pedido == null
+                ? modalButtonSheetFullScreen(ConfirmationWidget(theme: theme))
+                : null;
           }
         },
         onStepCancel: () {
