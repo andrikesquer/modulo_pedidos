@@ -6,7 +6,7 @@ import 'package:requisiciones/presentation/screens/screens.dart';
 final goRouterProvider = Provider<GoRouter>((ref) {
   return GoRouter(
     debugLogDiagnostics: true,
-    initialLocation: '/punto_venta',
+    initialLocation: '/operativo',
     routes: <RouteBase>[
       GoRoute(
         path: '/operativo',

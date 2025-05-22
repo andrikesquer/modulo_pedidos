@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 
 class CustomCheckBox extends StatefulWidget {
-  const CustomCheckBox({super.key, required this.theme, required this.text});
+  const CustomCheckBox({
+    super.key,
+    required this.theme,
+    required this.value,
+    required this.text,
+  });
 
   final ColorScheme theme;
+
+  final bool? value;
 
   final String text;
 
@@ -21,7 +28,7 @@ class _CustomCheckBoxState extends State<CustomCheckBox> {
   @override
   void initState() {
     _theme = widget.theme;
-    _value = false;
+    _value = widget.value == null ? false : widget.value!;
     _text = widget.text;
     super.initState();
   }
@@ -36,9 +43,11 @@ class _CustomCheckBoxState extends State<CustomCheckBox> {
           fillColor: WidgetStatePropertyAll(Colors.transparent),
           value: _value,
           onChanged: (bool? value) {
-            setState(() {
-              _value = value!;
-            });
+            if (widget.value == null) {
+              setState(() {
+                _value = value!;
+              });
+            }
           },
         ),
         Text(_text),
