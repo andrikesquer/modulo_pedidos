@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:requisiciones/presentation/screens/punto_venta/pedidos/widgets/pedidos_widgets.dart';
+import 'package:requisiciones/presentation/widgets/cliente_search_bar.dart';
 import 'package:requisiciones/presentation/widgets/custom_action_buttons.dart';
-import 'package:requisiciones/presentation/widgets/custom_search_bar.dart';
 import 'package:requisiciones/presentation/widgets/menu_almacenes_periodo/menu_almacen_periodo.dart';
+import 'package:requisiciones/presentation/widgets/search_button.dart';
 
 class PedidosScreen extends StatefulWidget {
   const PedidosScreen({super.key});
@@ -56,10 +57,7 @@ class PedidosScreenState extends State<PedidosScreen> {
       appBar: AppBar(
         backgroundColor: theme.primary,
         iconTheme: IconThemeData(color: theme.onPrimary),
-        title: Text(
-          'Pedidos',
-          style: TextStyle(color: theme.onPrimary),
-        ),
+        title: Text('Pedidos', style: TextStyle(color: theme.onPrimary)),
         actions: [
           IconButton(
             tooltip: 'Menú de Opciones',
@@ -79,11 +77,27 @@ class PedidosScreenState extends State<PedidosScreen> {
             child: Column(
               spacing: 15,
               children: [
-                CustomSearchBar(
-                  theme: theme,
-                  hint: 'Cliente',
-                  actions: searchBarActions,
-                  inputController: inputController,
+                Row(
+                  spacing: 10,
+                  children: [
+                    Expanded(
+                      flex: 3,
+                      child: ClienteSearchBar(
+                        theme: theme,
+                        searchBarActions: searchBarActions,
+                        inputController: inputController,
+                      ),
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: SearchButton(
+                        theme: theme,
+                        onPressed: () {
+                          debugPrint('Hola');
+                        },
+                      ),
+                    ),
+                  ],
                 ),
                 PedidosExpansionPanelList(theme: theme),
               ],

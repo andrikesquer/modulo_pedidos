@@ -34,7 +34,6 @@ class CustomSearchBar extends StatelessWidget {
         RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       ),
       keyboardType: textInputType,
-      leading: Icon(Icons.search, color: theme.primary),
       hintText: hint,
       trailing: actions.map((Widget widget) => widget).toList(),
       controller: inputController,

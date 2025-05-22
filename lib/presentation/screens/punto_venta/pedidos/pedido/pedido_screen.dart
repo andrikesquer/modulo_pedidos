@@ -81,7 +81,7 @@ class _PedidoScreenState extends State<PedidoScreen> {
   }
 
   bool _isEnabled(Pedido? pedido) =>
-      pedido?.status == 'FACTURADO' ? false : true;
+      pedido?.ESTATUS == 'FACTURADO' ? false : true;
 
   @override
   Widget build(BuildContext context) {
@@ -145,7 +145,7 @@ class _PedidoScreenState extends State<PedidoScreen> {
                   'Almacén',
                   TextButton(
                     child: Text(
-                      nuevo ? alm : pedido.almacen,
+                      nuevo ? alm : '${pedido.ID_ALMACEN}',
                       style: TextStyle(
                         fontSize: 14,
                         color: Colors.black,
@@ -164,42 +164,42 @@ class _PedidoScreenState extends State<PedidoScreen> {
                   theme,
                   'Cliente',
                   _isEnabled(pedido),
-                  pedido?.cliente,
+                  pedido?.ID_CLIENTE,
                 ),
                 // Vendedor
                 _customTextField(
                   theme,
                   'Vendedor',
                   nuevo ? true : false,
-                  pedido?.vendedor,
+                  pedido?.ID_VENDEDOR,
                 ),
                 // Sucursal
                 _customTextField(
                   theme,
                   'Sucursal',
                   nuevo ? true : false,
-                  pedido?.sucursal,
+                  pedido?.ID_SUCURSAL_CTE,
                 ),
                 // Atención a
                 _customTextField(
                   theme,
                   'Atención a',
                   nuevo ? true : false,
-                  pedido?.atencionA,
+                  pedido?.ATENCION,
                 ),
                 // Dirección
                 _customTextField(
                   theme,
                   'Dirección',
                   _isEnabled(pedido),
-                  pedido?.direccion,
+                  'Dirección',
                 ),
                 // Lista de precios
                 _customTextField(
                   theme,
                   'Lista de precios',
                   nuevo ? true : false,
-                  pedido?.lista_precios,
+                  'Lista precios',
                 ),
               ],
             ),
@@ -218,7 +218,7 @@ class _PedidoScreenState extends State<PedidoScreen> {
                   'Fecha de registro',
                   TextButton(
                     child: Text(
-                      nuevo ? fechaInicial : pedido.fechaRegistro,
+                      nuevo ? fechaInicial : pedido.FECHA_REGISTRO,
                       style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.normal,
@@ -263,14 +263,14 @@ class _PedidoScreenState extends State<PedidoScreen> {
                   theme,
                   'No. de Serie',
                   nuevo ? true : false,
-                  pedido?.noSerie,
+                  'No. de Serie',
                 ),
                 // Orden de compra
                 _customTextField(
                   theme,
                   'Orden de compra',
                   _isEnabled(pedido),
-                  pedido?.ordenCompra,
+                  pedido?.OrdenCompra,
                 ),
               ],
             ),
@@ -287,46 +287,36 @@ class _PedidoScreenState extends State<PedidoScreen> {
                 _customRow(
                   theme,
                   'Pedido',
-                  Text(nuevo ? '15550' : '${pedido.noPedido}'),
+                  Text(nuevo ? '15550' : '${pedido.ID_PEDIDO}'),
                 ),
                 // Estatus
                 _customRow(
                   theme,
                   'Estatus',
                   Text(
-                    nuevo ? 'NUEVO' : pedido.status,
+                    nuevo ? 'NUEVO' : pedido.ESTATUS,
                     style: TextStyle(color: Colors.red),
                   ),
                 ),
                 // RFC
-                _customTextField(
-                  theme,
-                  'RFC',
-                  nuevo ? true : false,
-                  pedido?.RFC,
-                ),
+                _customTextField(theme, 'RFC', nuevo ? true : false, 'RFC'),
                 // Plazo
-                _customTextField(
-                  theme,
-                  'Plazo',
-                  nuevo ? true : false,
-                  pedido?.plazo,
-                ),
+                _customTextField(theme, 'Plazo', nuevo ? true : false, 'Plazo'),
                 // Descuento
-                _customTextField(theme, 'Descuento', false, pedido?.descuento),
+                _customTextField(theme, 'Descuento', false, pedido?.DESCUENTO),
                 // Moneda
                 _customTextField(
                   theme,
                   'Moneda',
                   nuevo ? true : false,
-                  pedido?.moneda,
+                  'Moneda',
                 ),
                 // Paridad
                 _customTextField(
                   theme,
                   'Paridad',
                   nuevo ? true : false,
-                  pedido?.paridad,
+                  pedido?.PARIDAD,
                 ),
               ],
             ),
@@ -345,7 +335,7 @@ class _PedidoScreenState extends State<PedidoScreen> {
                   'Fecha inicio consigna',
                   TextButton(
                     child: Text(
-                      nuevo ? fechaInicial : pedido.fechaIConsigna,
+                      nuevo ? fechaInicial : pedido.FECHA_INICIOC,
                       style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.normal,
@@ -368,7 +358,7 @@ class _PedidoScreenState extends State<PedidoScreen> {
                   'Fecha fin consigna',
                   TextButton(
                     child: Text(
-                      nuevo ? fechaInicial : pedido.fechaFConsigna,
+                      nuevo ? fechaInicial : pedido.FECHA_FINC,
                       style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.normal,
@@ -390,14 +380,14 @@ class _PedidoScreenState extends State<PedidoScreen> {
                   theme,
                   'Campo addenda',
                   nuevo ? true : false,
-                  pedido?.campoAddenda,
+                  pedido?.CampoAddenda,
                 ),
                 // Observaciones
                 _customTextField(
                   theme,
                   'Observaciones',
                   true,
-                  pedido?.campoAddenda,
+                  pedido?.OBSERVACIONES,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -405,12 +395,12 @@ class _PedidoScreenState extends State<PedidoScreen> {
                     CustomCheckBox(
                       theme: theme,
                       text: 'Autorizar',
-                      value: pedido?.autorizar,
+                      value: pedido?.Autorizada,
                     ),
                     CustomCheckBox(
                       theme: theme,
                       text: 'IVA Total Retenido',
-                      value: pedido?.ivaTotalRetenido,
+                      value: pedido?.RETIENE_IVA,
                     ),
                   ],
                 ),
@@ -441,43 +431,47 @@ class _PedidoScreenState extends State<PedidoScreen> {
                 _customRow(
                   theme,
                   'Subtotal',
-                  Text(nuevo ? '\$388.90' : '\$${pedido.subtotal}'),
+                  Text(nuevo ? '\$388.90' : '\$${pedido.SUBTOTAL}'),
                 ),
                 // Descuento total
                 _customRow(
                   theme,
                   '- Descuento total',
-                  Text(nuevo ? '\$0.00' : '\$${pedido.dsctoTotal}'),
+                  Text(nuevo ? '\$0.00' : '\$${pedido.DESCUENTO_GLOBAL}'),
                 ),
                 // IEPS total
                 _customRow(
                   theme,
                   '+ IEPS Total',
-                  Text(nuevo ? '\$0.00' : '\$${pedido.IEPSTotal}'),
+                  Text(nuevo ? '\$0.00' : '\$${pedido.IEPS}'),
                 ),
                 // Importe con descuento
                 _customRow(
                   theme,
                   '+ Importe con descuento',
-                  Text(nuevo ? '\$388.90' : '\$${pedido.importeConDescuento}'),
+                  Text(
+                    nuevo
+                        ? '\$388.90'
+                        : '\$${pedido.IVA_RETENIDO_TOTAL - pedido.DESCUENTO}',
+                  ),
                 ),
                 // IVA total
                 _customRow(
                   theme,
                   '+ IVA Total',
-                  Text(nuevo ? '\$62.23' : '\$${pedido.IVATotal}'),
+                  Text(nuevo ? '\$62.23' : '\$${pedido.IVA}'),
                 ),
                 // IVA retenido
                 _customRow(
                   theme,
                   '- IVA retenido',
-                  Text(nuevo ? '\$0.00' : '\$${pedido.IVARetenido}'),
+                  Text(nuevo ? '\$0.00' : '\$${pedido.IVA_RETENIDO_TOTAL}'),
                 ),
                 // Gran Total
                 _customRow(
                   theme,
                   '= Gran total',
-                  Text(nuevo ? '\$451.13' : '\$${pedido.granTotal}'),
+                  Text(nuevo ? '\$451.13' : '\$${pedido.SUBTOTAL}'),
                 ),
               ],
             ),
