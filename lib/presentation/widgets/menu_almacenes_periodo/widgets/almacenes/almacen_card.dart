@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:requisiciones/domain/entities/almacen_ob.dart';
+import 'package:requisiciones/presentation/providers/almacen_seleccionado_provider.dart';
 
-class AlmacenCard extends StatelessWidget {
+class AlmacenCard extends ConsumerWidget {
   const AlmacenCard({super.key, required this.almacen, required this.theme});
 
   final AlmacenOB almacen;
@@ -9,13 +11,16 @@ class AlmacenCard extends StatelessWidget {
   final ColorScheme theme;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Card(
       elevation: 4,
       color: theme.primary,
       child: InkWell(
         splashColor: theme.primary.withAlpha(90),
         onTap: () {
+          ref
+              .read(almacenSeleccionadoProvider.notifier)
+              .seleccionarAlmacen(almacen);
           Navigator.pop(context);
         },
         child: Column(

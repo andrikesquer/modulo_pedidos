@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:requisiciones/config/DI/dependencias.dart';
 import 'package:requisiciones/domain/entities/almacen_ob.dart';
 import 'package:requisiciones/presentation/providers/almacen_seleccionado_provider.dart';
+import 'package:requisiciones/presentation/viewmodels/almacenes_viewmodel.dart';
 import 'package:requisiciones/presentation/widgets/custom_top_menu.dart';
 import 'package:requisiciones/presentation/widgets/menu_almacenes_periodo/widgets/menu_almacenes.dart';
 import 'package:requisiciones/presentation/widgets/menu_almacenes_periodo/widgets/menu_periodo.dart';
@@ -15,8 +15,8 @@ class MenuAlmacenPeriodo extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final String almacen = 'REFRI-GOMEZ';
-
-    // final AlmacenOB? almacenSeleccionado = ref.watch(almacenSeleccionadoProvider);
+    final almacenSeleccionado = ref.watch(almacenSeleccionadoProvider);
+    final List<AlmacenOB> almacenes = ref.read(almacenesFiltradosProvider);
 
     void mostrarMenu(Widget menu) {
       showModalBottomSheet(
@@ -34,7 +34,9 @@ class MenuAlmacenPeriodo extends ConsumerWidget {
         label: Row(
           children: [
             Text(
-              almacen,
+              almacenSeleccionado.value?.nombre == null
+                  ? '${almacenes[0].id_almacen}. ${almacenes[0].nombre}'
+                  : '${almacenSeleccionado.value?.id_almacen}. ${almacenSeleccionado.value?.nombre}',
               style: TextStyle(
                 fontSize: 14,
                 color: Colors.black,
