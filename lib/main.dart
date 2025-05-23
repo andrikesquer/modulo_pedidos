@@ -1,14 +1,22 @@
- import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:requisiciones/data/data_sources/objectbox_database.dart';
+import 'package:requisiciones/config/DB/object_box_connection.dart';
+import 'package:requisiciones/config/DI/dependencias.dart';
 import 'package:requisiciones/routes/routes.dart';
 import 'package:requisiciones/presentation/providers/theme_provider.dart';
 import 'config/theme/app_theme.dart';
 
-late ObjectBoxDatabase objectbox;
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
 
-void main() {
-  runApp(ProviderScope(child: MyApp()));
+  final ObjectboxConnection objectBox = await ObjectboxConnection.create();
+
+  runApp(
+    ProviderScope(
+      overrides: [objectBoxProvider.overrideWithValue(objectBox)],
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends ConsumerWidget {

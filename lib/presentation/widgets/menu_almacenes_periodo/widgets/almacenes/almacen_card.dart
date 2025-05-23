@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:requisiciones/domain/entities/almacen_ob.dart';
 
 class AlmacenCard extends StatelessWidget {
-  const AlmacenCard({super.key, required this.alm, required this.theme});
+  const AlmacenCard({super.key, required this.almacen, required this.theme});
 
-  final String alm;
+  final AlmacenOB almacen;
 
   final ColorScheme theme;
 
@@ -20,11 +21,14 @@ class AlmacenCard extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              alm,
-              style: TextStyle(
-                fontWeight: FontWeight.w600,
-                color: theme.onPrimary,
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: Text(
+                '${almacen.id_almacen}. ${almacen.nombre}',
+                style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  color: theme.onPrimary,
+                ),
               ),
             ),
           ],

@@ -19,7 +19,7 @@ class SearchButton extends StatelessWidget {
         shadowColor: WidgetStatePropertyAll(theme.primary.withAlpha(60)),
       ),
       onPressed: () {
-        onPressed;
+        onPressed();
       },
       child: Icon(Icons.search),
     );

@@ -14,7 +14,7 @@ import 'package:objectbox/internal.dart'
 import 'package:objectbox/objectbox.dart' as obx;
 import 'package:objectbox_flutter_libs/objectbox_flutter_libs.dart';
 
-import '../../domain/entities/almacen.dart';
+import '../../domain/entities/almacen_ob.dart';
 
 export 'package:objectbox/objectbox.dart'; // so that callers only have to import this file
 
@@ -22,7 +22,7 @@ final _entities = <obx_int.ModelEntity>[
   obx_int.ModelEntity(
     id: const obx_int.IdUid(1, 2879809237787296514),
     name: 'AlmacenOB',
-    lastPropertyId: const obx_int.IdUid(4, 4063488230860845592),
+    lastPropertyId: const obx_int.IdUid(5, 8876060256081165091),
     flags: 0,
     properties: <obx_int.ModelProperty>[
       obx_int.ModelProperty(
@@ -44,9 +44,9 @@ final _entities = <obx_int.ModelEntity>[
         flags: 0,
       ),
       obx_int.ModelProperty(
-        id: const obx_int.IdUid(4, 4063488230860845592),
-        name: 'nombreOrden',
-        type: 9,
+        id: const obx_int.IdUid(5, 8876060256081165091),
+        name: 'id_sucursal',
+        type: 6,
         flags: 0,
       ),
     ],
@@ -99,7 +99,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
     lastSequenceId: const obx_int.IdUid(0, 0),
     retiredEntityUids: const [],
     retiredIndexUids: const [],
-    retiredPropertyUids: const [],
+    retiredPropertyUids: const [4063488230860845592],
     retiredRelationUids: const [],
     modelVersion: 5,
     modelVersionParserMinimum: 5,
@@ -117,12 +117,11 @@ obx_int.ModelDefinition getObjectBoxModel() {
       },
       objectToFB: (AlmacenOB object, fb.Builder fbb) {
         final nombreOffset = fbb.writeString(object.nombre);
-        final nombreOrdenOffset = fbb.writeString(object.nombreOrden);
-        fbb.startTable(5);
+        fbb.startTable(6);
         fbb.addInt64(0, object.id);
         fbb.addInt64(1, object.id_almacen);
         fbb.addOffset(2, nombreOffset);
-        fbb.addOffset(3, nombreOrdenOffset);
+        fbb.addInt64(4, object.id_sucursal);
         fbb.finish(fbb.endTable());
         return object.id;
       },
@@ -135,6 +134,12 @@ obx_int.ModelDefinition getObjectBoxModel() {
           4,
           0,
         );
+        final id_sucursalParam = const fb.Int64Reader().vTableGet(
+          buffer,
+          rootOffset,
+          12,
+          0,
+        );
         final id_almacenParam = const fb.Int64Reader().vTableGet(
           buffer,
           rootOffset,
@@ -144,14 +149,11 @@ obx_int.ModelDefinition getObjectBoxModel() {
         final nombreParam = const fb.StringReader(
           asciiOptimization: true,
         ).vTableGet(buffer, rootOffset, 8, '');
-        final nombreOrdenParam = const fb.StringReader(
-          asciiOptimization: true,
-        ).vTableGet(buffer, rootOffset, 10, '');
         final object = AlmacenOB(
           id: idParam,
+          id_sucursal: id_sucursalParam,
           id_almacen: id_almacenParam,
           nombre: nombreParam,
-          nombreOrden: nombreOrdenParam,
         );
 
         return object;
@@ -179,8 +181,8 @@ class AlmacenOB_ {
     _entities[0].properties[2],
   );
 
-  /// See [AlmacenOB.nombreOrden].
-  static final nombreOrden = obx.QueryStringProperty<AlmacenOB>(
+  /// See [AlmacenOB.id_sucursal].
+  static final id_sucursal = obx.QueryIntegerProperty<AlmacenOB>(
     _entities[0].properties[3],
   );
 }

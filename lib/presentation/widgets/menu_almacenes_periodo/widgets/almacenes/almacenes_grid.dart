@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:requisiciones/domain/entities/almacen_ob.dart';
+import 'package:requisiciones/presentation/viewmodels/almacenes_viewmodel.dart';
 import 'almacen_card.dart';
 
 class AlmacenesGrid extends ConsumerWidget {
@@ -9,13 +11,7 @@ class AlmacenesGrid extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final List<String> almacenes = [
-      'REFRI-VICENTE',
-      'REFRI-GOMEZ',
-      'REFRI-TORRES',
-      'REFRI-CHIHUAHUA-TEC',
-      'REFRI-TORRES',
-    ];
+    List<AlmacenOB> almacenes = ref.watch(almacenesFiltradosProvider);
 
     return GridView.builder(
       itemCount: almacenes.length,
@@ -26,7 +22,7 @@ class AlmacenesGrid extends ConsumerWidget {
         crossAxisSpacing: 5,
       ),
       itemBuilder: (BuildContext context, int index) {
-        return AlmacenCard(theme: theme, alm: almacenes[index]);
+        return AlmacenCard(theme: theme, almacen: almacenes[index]);
       },
     );
   }

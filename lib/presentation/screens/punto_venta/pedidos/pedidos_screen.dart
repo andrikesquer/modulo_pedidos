@@ -1,18 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:requisiciones/data/models/almacen_model.dart';
+import 'package:requisiciones/domain/entities/almacen_ob.dart';
 import 'package:requisiciones/presentation/screens/punto_venta/pedidos/widgets/pedidos_widgets.dart';
-import 'package:requisiciones/presentation/widgets/cliente_search_bar.dart';
-import 'package:requisiciones/presentation/widgets/custom_action_buttons.dart';
+import 'package:requisiciones/presentation/viewmodels/almacenes_viewmodel.dart';
+import 'package:requisiciones/presentation/widgets/custom_search_bar.dart';
 import 'package:requisiciones/presentation/widgets/menu_almacenes_periodo/menu_almacen_periodo.dart';
 import 'package:requisiciones/presentation/widgets/search_button.dart';
 
-class PedidosScreen extends StatefulWidget {
+class PedidosScreen extends ConsumerStatefulWidget {
   const PedidosScreen({super.key});
 
   @override
-  PedidosScreenState createState() => PedidosScreenState();
+  ConsumerState<PedidosScreen> createState() => PedidosScreenState();
 }
 
-class PedidosScreenState extends State<PedidosScreen> {
+class PedidosScreenState extends ConsumerState<PedidosScreen> {
+  bool isLoading = false;
+
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -23,23 +28,7 @@ class PedidosScreenState extends State<PedidosScreen> {
   @override
   Widget build(BuildContext context) {
     final ColorScheme theme = Theme.of(context).colorScheme;
-
-    final List<FloatingActionButton> buttons = [
-      FloatingActionButton(
-        heroTag: "btn1",
-        elevation: 4,
-        tooltip: 'Limpiar Filtros',
-        onPressed: () {},
-        child: Icon(Icons.cleaning_services, color: theme.primary),
-      ),
-      FloatingActionButton(
-        heroTag: "btn2",
-        elevation: 4,
-        tooltip: 'Buscar Pedidos',
-        onPressed: () {},
-        child: Icon(Icons.search, color: theme.primary),
-      ),
-    ];
+    List<Almacen> almacenes = ref.watch(almacenesProvider);
 
     final TextEditingController inputController = TextEditingController();
 
@@ -51,6 +40,51 @@ class PedidosScreenState extends State<PedidosScreen> {
         icon: Icon(Icons.clear, color: theme.primary),
       ),
     ];
+
+    stopLoading() {
+      Future.delayed(const Duration(seconds: 2), () {
+        setState(() {
+          isLoading = false;
+        });
+      });
+    }
+
+    cargarAlmacenes() async {
+      setState(() {
+        isLoading = true;
+      });
+
+      await ref
+          .read(almacenesProvider.notifier)
+          .fetchAlmacenes('19cf4bcd-c52c-41bf-9fc8-b1f3d91af2df', 2, 10);
+
+      stopLoading();
+    }
+
+    guardarAlmacenes(List<Almacen> almacenes) async {
+      if (almacenes.isNotEmpty) {
+        int i = 1;
+        for (Almacen alm in almacenes) {
+          AlmacenOB almacenOB = AlmacenOB(
+            id_sucursal: alm.id_sucursal,
+            id_almacen: alm.id_almacen,
+            nombre: alm.nombre,
+          );
+
+          bool result = ref.read(almacenesVMProvider).agregarAlmacen(almacenOB);
+
+          if (result == false) {
+            debugPrint(
+              "Almacen no registrado, id_almacen duplicado: ${almacenOB.id_almacen}",
+            );
+          } else {
+            debugPrint("Guardando almacenes...${i++}/${almacenes.length}");
+          }
+        }
+      } else {
+        debugPrint("No hay almacenes para guardar");
+      }
+    }
 
     return Scaffold(
       key: scaffoldKey,
@@ -77,37 +111,48 @@ class PedidosScreenState extends State<PedidosScreen> {
             child: Column(
               spacing: 15,
               children: [
+                // Barra de búsqueda cliente y botón de búsqueda pedidos
                 Row(
                   spacing: 10,
                   children: [
                     Expanded(
                       flex: 3,
-                      child: ClienteSearchBar(
+                      child: CustomSearchBar(
                         theme: theme,
-                        searchBarActions: searchBarActions,
+                        hint: 'Cliente',
+                        actions: searchBarActions,
                         inputController: inputController,
                       ),
                     ),
                     Expanded(
                       flex: 1,
-                      child: SearchButton(
-                        theme: theme,
-                        onPressed: () {
-                          debugPrint('Hola');
-                        },
+                      child: SizedBox(
+                        height: 56,
+                        child: SearchButton(
+                          theme: theme,
+                          onPressed: () {
+                            debugPrint('Buscar');
+                          },
+                        ),
                       ),
                     ),
                   ],
                 ),
-                PedidosExpansionPanelList(theme: theme),
+                // Resultados de búsqueda (pedidos)
+                isLoading
+                    ? CircularProgressIndicator()
+                    : PedidosExpansionPanelList(theme: theme),
               ],
             ),
           ),
         ],
       ),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.all(15),
-        child: CustomActionButtons(theme: theme, buttons: buttons),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // cargarAlmacenes();
+          guardarAlmacenes(almacenes);
+        },
+        child: Icon(Icons.storefront),
       ),
     );
   }

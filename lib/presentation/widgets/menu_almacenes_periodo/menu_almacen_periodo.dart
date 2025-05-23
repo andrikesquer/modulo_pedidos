@@ -1,16 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:requisiciones/config/DI/dependencias.dart';
+import 'package:requisiciones/domain/entities/almacen_ob.dart';
+import 'package:requisiciones/presentation/providers/almacen_seleccionado_provider.dart';
 import 'package:requisiciones/presentation/widgets/custom_top_menu.dart';
 import 'package:requisiciones/presentation/widgets/menu_almacenes_periodo/widgets/menu_almacenes.dart';
 import 'package:requisiciones/presentation/widgets/menu_almacenes_periodo/widgets/menu_periodo.dart';
 
-class MenuAlmacenPeriodo extends StatelessWidget {
+class MenuAlmacenPeriodo extends ConsumerWidget {
   const MenuAlmacenPeriodo({super.key, required this.theme});
 
   final ColorScheme theme;
 
   @override
-  Widget build(BuildContext context) {
-    final String alm = 'REFRI-GOMEZ';
+  Widget build(BuildContext context, WidgetRef ref) {
+    final String almacen = 'REFRI-GOMEZ';
+
+    // final AlmacenOB? almacenSeleccionado = ref.watch(almacenSeleccionadoProvider);
 
     void mostrarMenu(Widget menu) {
       showModalBottomSheet(
@@ -28,7 +34,7 @@ class MenuAlmacenPeriodo extends StatelessWidget {
         label: Row(
           children: [
             Text(
-              alm,
+              almacen,
               style: TextStyle(
                 fontSize: 14,
                 color: Colors.black,

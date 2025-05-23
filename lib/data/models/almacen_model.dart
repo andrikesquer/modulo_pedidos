@@ -4,13 +4,13 @@ part 'almacen_model.g.dart';
 
 @JsonSerializable()
 class Almacen {
+  int id_sucursal;
+
   int id_almacen;
 
   String nombre;
 
-  String nombreOrden;
-
-  Almacen(this.id_almacen, this.nombre, this.nombreOrden);
+  Almacen(this.id_sucursal, this.id_almacen, this.nombre);
 
   factory Almacen.fromJson(Map<String, dynamic> json) =>
       _$AlmacenFromJson(json);

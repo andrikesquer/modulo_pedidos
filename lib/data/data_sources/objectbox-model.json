@@ -5,7 +5,7 @@
   "entities": [
     {
       "id": "1:2879809237787296514",
-      "lastPropertyId": "4:4063488230860845592",
+      "lastPropertyId": "5:8876060256081165091",
       "name": "AlmacenOB",
       "properties": [
         {
@@ -25,9 +25,9 @@
           "type": 9
         },
         {
-          "id": "4:4063488230860845592",
-          "name": "nombreOrden",
-          "type": 9
+          "id": "5:8876060256081165091",
+          "name": "id_sucursal",
+          "type": 6
         }
       ],
       "relations": []
@@ -41,7 +41,9 @@
   "modelVersionParserMinimum": 5,
   "retiredEntityUids": [],
   "retiredIndexUids": [],
-  "retiredPropertyUids": [],
+  "retiredPropertyUids": [
+    4063488230860845592
+  ],
   "retiredRelationUids": [],
   "version": 1
 }
