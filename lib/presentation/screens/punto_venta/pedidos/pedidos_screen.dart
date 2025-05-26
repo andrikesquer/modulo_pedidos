@@ -49,18 +49,6 @@ class PedidosScreenState extends ConsumerState<PedidosScreen> {
       });
     }
 
-    cargarAlmacenes() async {
-      setState(() {
-        isLoading = true;
-      });
-
-      await ref
-          .read(almacenesProvider.notifier)
-          .fetchAlmacenes('19cf4bcd-c52c-41bf-9fc8-b1f3d91af2df', 2, 10);
-
-      stopLoading();
-    }
-
     guardarAlmacenes(List<Almacen> almacenes) async {
       if (almacenes.isNotEmpty) {
         int i = 1;
@@ -84,6 +72,18 @@ class PedidosScreenState extends ConsumerState<PedidosScreen> {
       } else {
         debugPrint("No hay almacenes para guardar");
       }
+    }
+
+    cargarAlmacenes() async {
+      setState(() {
+        isLoading = true;
+      });
+
+      await ref
+          .read(almacenesProvider.notifier)
+          .fetchAlmacenes('19cf4bcd-c52c-41bf-9fc8-b1f3d91af2df', 2, 10);
+
+      stopLoading();
     }
 
     return Scaffold(
@@ -149,8 +149,12 @@ class PedidosScreenState extends ConsumerState<PedidosScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // cargarAlmacenes();
-          guardarAlmacenes(almacenes);
+          if (almacenes.isEmpty) {
+            cargarAlmacenes();
+          } else {
+            guardarAlmacenes(almacenes);
+            ref.read(almacenesProv.notifier).actualizar();
+          }
         },
         child: Icon(Icons.storefront),
       ),

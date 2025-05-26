@@ -18,20 +18,20 @@ class AlmacenesNotifier extends StateNotifier<List<Almacen>> {
     int idSubscription,
   ) async {
     try {
-      final List<Almacen> almacenes = await _repositorioAlmacenes.getData(
-        idSaas,
-        idCompany,
-        idSubscription,
-      );
-
-      state = almacenes;
+      // final List<Almacen> almacenes = await _repositorioAlmacenes.getData(
+      //   idSaas,
+      //   idCompany,
+      //   idSubscription,
+      // );
+      //
+      // state = almacenes;
 
       final List<Almacen> almacenesSimulados = [
         Almacen(0, 0, 'TODOS'),
         Almacen(1, 1, 'REFRI-VICENTE'),
       ];
 
-      // state = almacenesSimulados;
+      state = almacenesSimulados;
 
       debugPrint('Datos de almacenes cargados correctamente');
     } catch (e) {
@@ -112,7 +112,7 @@ final almacenesVMProvider = ChangeNotifierProvider<AlmacenesViewModel>((ref) {
 // Almacenes filtrados provider
 
 final almacenesFiltradosProvider = StateProvider<List<AlmacenOB>>((ref) {
-  final inputSearch = ref.watch(inputSearchProvider);
+  final String inputSearch = ref.watch(inputSearchProvider);
   final almacenes = ref.watch(almacenServicioProvider).getAllAlmacenesLDB();
   return almacenes
       .where(
@@ -121,3 +121,17 @@ final almacenesFiltradosProvider = StateProvider<List<AlmacenOB>>((ref) {
       )
       .toList();
 });
+
+class AlmacenesNotif extends StateNotifier<List<AlmacenOB>> {
+  final AlmacenServicio servicio;
+
+  AlmacenesNotif(this.servicio) : super(servicio.getAllAlmacenesLDB());
+
+  void actualizar() {
+    state = servicio.getAllAlmacenesLDB();
+  }
+}
+
+final almacenesProv = StateNotifierProvider<AlmacenesNotif, List<AlmacenOB>>(
+  (ref) => AlmacenesNotif(ref.watch(almacenServicioProvider)),
+);
