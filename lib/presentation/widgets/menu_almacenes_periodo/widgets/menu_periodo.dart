@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:requisiciones/data/models/tipo_fecha_model.dart';
 import 'package:requisiciones/presentation/widgets/custom_bottom_menu.dart';
-import 'package:requisiciones/presentation/widgets/custom_drop_down_menu.dart';
-import 'package:requisiciones/presentation/widgets/menu_almacenes_periodo/widgets/fecha_button.dart';
+import 'package:requisiciones/presentation/widgets/menu_almacenes_periodo/widgets/periodo/fecha_button.dart';
+import 'package:requisiciones/presentation/widgets/menu_almacenes_periodo/widgets/periodo/tipo_fecha_drop_down_menu.dart';
 
 class MenuPeriodo extends StatelessWidget {
   const MenuPeriodo({super.key, required this.theme});
@@ -16,13 +17,16 @@ class MenuPeriodo extends StatelessWidget {
       color: theme.primary,
     );
 
-    final List<String> tiposFecha = [
-      'Fecha de registro',
-      'Fecha de movimiento',
-      'Fecha de cancelación',
-      'Fecha de O.C',
-      'Fecha de inicio consigna',
-      'Fecha de fin consigna',
+    final List<TipoFecha> options = [
+      TipoFecha(ID_TIPO_FECHA: 1, NOMBRE_TIPO_FECHA: 'Fecha de registro'),
+      TipoFecha(ID_TIPO_FECHA: 2, NOMBRE_TIPO_FECHA: 'Fecha de movimiento'),
+      TipoFecha(ID_TIPO_FECHA: 3, NOMBRE_TIPO_FECHA: 'Fecha de cancelación'),
+      TipoFecha(ID_TIPO_FECHA: 4, NOMBRE_TIPO_FECHA: 'Fecha de O.C'),
+      TipoFecha(
+        ID_TIPO_FECHA: 5,
+        NOMBRE_TIPO_FECHA: 'Fecha de inicio consigna',
+      ),
+      TipoFecha(ID_TIPO_FECHA: 6, NOMBRE_TIPO_FECHA: 'Fecha de fin consigna'),
     ];
 
     Widget content() {
@@ -54,7 +58,7 @@ class MenuPeriodo extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.only(left: 10),
-                child: CustomDropDownMenu(options: tiposFecha),
+                child: TipoFechaDropDownMenu(options: options),
               ),
               FechaButton(esPrimeraFecha: true),
               FechaButton(esPrimeraFecha: false),

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:requisiciones/presentation/widgets/custom_action_buttons.dart';
 import 'package:requisiciones/presentation/widgets/custom_drop_down_menu.dart';
 import 'package:requisiciones/presentation/widgets/custom_text_field.dart';
-import 'package:requisiciones/presentation/widgets/menu_almacenes_periodo/widgets/fecha_button.dart';
+import 'package:requisiciones/presentation/widgets/menu_almacenes_periodo/widgets/periodo/fecha_button.dart';
 
 class ModalBuscarDetalladamente extends StatefulWidget {
   const ModalBuscarDetalladamente({super.key});

@@ -1,33 +1,149 @@
+// import 'package:flutter/material.dart';
+// import 'package:flutter_riverpod/flutter_riverpod.dart';
+// import 'package:requisiciones/presentation/providers/almacen_seleccionado_provider.dart';
+// import 'package:requisiciones/presentation/providers/fecha_provider.dart';
+// import 'package:requisiciones/presentation/viewmodels/almacenes_viewmodel.dart';
+// import 'package:requisiciones/presentation/widgets/custom_top_menu.dart';
+// import 'package:requisiciones/presentation/widgets/menu_almacenes_periodo/widgets/menu_almacenes.dart';
+// import 'package:requisiciones/presentation/widgets/menu_almacenes_periodo/widgets/menu_periodo.dart';
+//
+// class MenuAlmacenPeriodo extends ConsumerWidget {
+//   const MenuAlmacenPeriodo({super.key, required this.theme});
+//
+//   final ColorScheme theme;
+//
+//   @override
+//   Widget build(BuildContext context, WidgetRef ref) {
+//     // Almacenes
+//     final almacenSeleccionado = ref.watch(almacenSeleccionadoProvider);
+//     final almacenesLDB = ref.watch(almacenesVMProvider).almacenesFiltrados;
+//
+//     // Fechas
+//     final fechaInicial = ref.watch(fechaInicialStringProvider);
+//     final fechaFinal = ref.watch(fechaFinalStringProvider);
+//
+//     void mostrarMenu(Widget menu) {
+//       showModalBottomSheet(
+//         useSafeArea: true,
+//         showDragHandle: true,
+//         context: context,
+//         builder: (BuildContext context) {
+//           return menu;
+//         },
+//       );
+//     }
+//
+//     final List<TextButton> buttons = [
+//       // Almacén
+//       TextButton.icon(
+//         label: Row(
+//           children: [
+//             Text(
+//               ref
+//                       .watch(almacenesVMProvider)
+//                       .almacenesFiltrados
+//                       .isEmpty // Hay almacenes en persistencia local?
+//                   ? 'Sin almacenes' // No hay almacenes en persistencia local
+//                   : almacenSeleccionado.value ==
+//                       null // Hay un almacén seleccionado?
+//                   ? '${almacenesLDB[0].id_almacen}. ${almacenesLDB[0].nombre}' // No lo hay: muestra el primero de la lista
+//                   : '${almacenSeleccionado.value?.id_almacen}. ${almacenSeleccionado.value?.nombre}', // Si hay: Lo muestra
+//               style: TextStyle(
+//                 fontSize: 14,
+//                 color: Colors.black,
+//                 fontWeight: FontWeight.normal,
+//               ),
+//             ),
+//           ],
+//         ),
+//         icon: Icon(Icons.location_on, color: theme.primary, size: 24),
+//         onPressed: () {
+//           if (almacenesLDB.isNotEmpty) {
+//             mostrarMenu(MenuAlmacenes(theme: theme));
+//           }
+//         },
+//       ),
+//       // Fecha
+//       TextButton.icon(
+//         label: Row(
+//           children: [
+//             Text(
+//               '${fechaInicial.value}',
+//               style: TextStyle(
+//                 fontSize: 14,
+//                 color: Colors.black,
+//                 fontWeight: FontWeight.normal,
+//               ),
+//             ),
+//             Icon(Icons.arrow_right),
+//             Text(
+//               '${fechaFinal.value}',
+//               style: TextStyle(
+//                 fontSize: 14,
+//                 color: Colors.black,
+//                 fontWeight: FontWeight.normal,
+//               ),
+//             ),
+//           ],
+//         ),
+//         icon: Icon(Icons.date_range, color: theme.primary, size: 24),
+//         onPressed: () {
+//           mostrarMenu(MenuPeriodo(theme: theme));
+//         },
+//       ),
+//     ];
+//
+//     return CustomMenu(theme: theme, buttons: buttons);
+//   }
+// }
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:requisiciones/domain/entities/almacen_ob.dart';
 import 'package:requisiciones/presentation/providers/almacen_seleccionado_provider.dart';
+import 'package:requisiciones/presentation/providers/fecha_provider.dart';
 import 'package:requisiciones/presentation/viewmodels/almacenes_viewmodel.dart';
 import 'package:requisiciones/presentation/widgets/custom_top_menu.dart';
 import 'package:requisiciones/presentation/widgets/menu_almacenes_periodo/widgets/menu_almacenes.dart';
 import 'package:requisiciones/presentation/widgets/menu_almacenes_periodo/widgets/menu_periodo.dart';
 
-class MenuAlmacenPeriodo extends ConsumerWidget {
+class MenuAlmacenPeriodo extends ConsumerStatefulWidget {
   const MenuAlmacenPeriodo({super.key, required this.theme});
 
   final ColorScheme theme;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final almacenSeleccionado = ref.watch(almacenSeleccionadoProvider);
-    List<AlmacenOB> almacenesLDB = ref.watch(almacenesFiltradosProvider);
-    final almacenes = ref.read(almacenesProv.notifier).actualizar();
+  ConsumerState createState() => _MenuAlmacenPeriodoState();
+}
 
-    void mostrarMenu(Widget menu) {
-      showModalBottomSheet(
-        useSafeArea: true,
-        showDragHandle: true,
-        context: context,
-        builder: (BuildContext context) {
-          return menu;
-        },
-      );
-    }
+class _MenuAlmacenPeriodoState extends ConsumerState<MenuAlmacenPeriodo> {
+  late final ColorScheme _theme;
+
+  @override
+  void initState() {
+    super.initState();
+    _theme = widget.theme;
+    ref.read(almacenesVMProvider).getAllAlmacenesLDB();
+  }
+
+  void mostrarMenu(Widget menu) {
+    showModalBottomSheet(
+      useSafeArea: true,
+      showDragHandle: true,
+      context: context,
+      builder: (BuildContext context) {
+        return menu;
+      },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final almacenSeleccionado = ref.watch(almacenSeleccionadoProvider);
+    final almacenesLDB =
+        ref.watch(almacenesVMProvider.notifier).almacenesFiltrados;
+
+    final fechaInicial = ref.watch(fechaInicialStringProvider);
+    final fechaFinal = ref.watch(fechaFinalStringProvider);
 
     final List<TextButton> buttons = [
       // Almacén
@@ -50,10 +166,10 @@ class MenuAlmacenPeriodo extends ConsumerWidget {
             ),
           ],
         ),
-        icon: Icon(Icons.location_on, color: theme.primary, size: 24),
+        icon: Icon(Icons.location_on, color: _theme.primary, size: 24),
         onPressed: () {
           if (almacenesLDB.isNotEmpty) {
-            mostrarMenu(MenuAlmacenes(theme: theme));
+            mostrarMenu(MenuAlmacenes(theme: _theme));
           }
         },
       ),
@@ -62,7 +178,7 @@ class MenuAlmacenPeriodo extends ConsumerWidget {
         label: Row(
           children: [
             Text(
-              '15/05/2025',
+              '${fechaInicial.value}',
               style: TextStyle(
                 fontSize: 14,
                 color: Colors.black,
@@ -71,7 +187,7 @@ class MenuAlmacenPeriodo extends ConsumerWidget {
             ),
             Icon(Icons.arrow_right),
             Text(
-              '16/05/2025',
+              '${fechaFinal.value}',
               style: TextStyle(
                 fontSize: 14,
                 color: Colors.black,
@@ -80,13 +196,13 @@ class MenuAlmacenPeriodo extends ConsumerWidget {
             ),
           ],
         ),
-        icon: Icon(Icons.date_range, color: theme.primary, size: 24),
+        icon: Icon(Icons.date_range, color: _theme.primary, size: 24),
         onPressed: () {
-          mostrarMenu(MenuPeriodo(theme: theme));
+          mostrarMenu(MenuPeriodo(theme: _theme));
         },
       ),
     ];
 
-    return CustomMenu(theme: theme, buttons: buttons);
+    return CustomMenu(theme: _theme, buttons: buttons);
   }
 }

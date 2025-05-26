@@ -72,6 +72,9 @@ class PedidosScreenState extends ConsumerState<PedidosScreen> {
       } else {
         debugPrint("No hay almacenes para guardar");
       }
+      setState(() {
+        ref.watch(almacenesVMProvider.notifier).getAllAlmacenesLDB();
+      });
     }
 
     cargarAlmacenes() async {
@@ -153,7 +156,6 @@ class PedidosScreenState extends ConsumerState<PedidosScreen> {
             cargarAlmacenes();
           } else {
             guardarAlmacenes(almacenes);
-            ref.read(almacenesProv.notifier).actualizar();
           }
         },
         child: Icon(Icons.storefront),

@@ -51,9 +51,9 @@ class AlmacenesViewModel extends ChangeNotifier {
 
   List<AlmacenOB> almacenesFiltrados = [];
 
-  final AlmacenServicio _almacenServicio;
-
   AlmacenOB? almacenActualzado;
+
+  final AlmacenServicio _almacenServicio;
 
   AlmacenesViewModel(this._almacenServicio);
 
@@ -113,7 +113,8 @@ final almacenesVMProvider = ChangeNotifierProvider<AlmacenesViewModel>((ref) {
 
 final almacenesFiltradosProvider = StateProvider<List<AlmacenOB>>((ref) {
   final String inputSearch = ref.watch(inputSearchProvider);
-  final List<AlmacenOB> almacenes = ref.watch(almacenServicioProvider).getAllAlmacenesLDB();
+  final List<AlmacenOB> almacenes =
+      ref.watch(almacenServicioProvider).getAllAlmacenesLDB();
   return almacenes
       .where(
         (almacenOB) =>
@@ -121,17 +122,3 @@ final almacenesFiltradosProvider = StateProvider<List<AlmacenOB>>((ref) {
       )
       .toList();
 });
-
-class AlmacenesNotif extends StateNotifier<List<AlmacenOB>> {
-  final AlmacenServicio servicio;
-
-  AlmacenesNotif(this.servicio) : super(servicio.getAllAlmacenesLDB());
-
-  void actualizar() {
-    state = servicio.getAllAlmacenesLDB();
-  }
-}
-
-final almacenesProv = StateNotifierProvider<AlmacenesNotif, List<AlmacenOB>>(
-  (ref) => AlmacenesNotif(ref.watch(almacenServicioProvider)),
-);

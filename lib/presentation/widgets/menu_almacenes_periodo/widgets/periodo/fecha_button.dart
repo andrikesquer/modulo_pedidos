@@ -1,23 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:requisiciones/presentation/providers/fecha_provider.dart';
 
-class FechaButton extends StatefulWidget {
+class FechaButton extends ConsumerStatefulWidget {
   const FechaButton({super.key, required this.esPrimeraFecha});
 
   final bool esPrimeraFecha;
 
   @override
-  State<FechaButton> createState() => _FechaButtonState();
+  ConsumerState createState() => _FechaState();
 }
 
-class _FechaButtonState extends State<FechaButton> {
+class _FechaState extends ConsumerState<FechaButton> {
   late final bool _esPrimeraFecha;
 
-  final DateTime hoy = DateTime.now();
+  late final hoyDateTime = ref.read(fechaFinalDateTimeProvider);
 
-  late final DateTime ayer = DateTime(hoy.year, hoy.month, hoy.day - 1);
+  late final ayerDateTime = ref.read(fechaInicialDateTimeProvider);
 
-  late final String hoyString = '${hoy.day}/${hoy.month}/${hoy.year}';
-  late final String ayerString = '${ayer.day}/${ayer.month}/${ayer.year}';
+  late final hoyString = ref.watch(fechaFinalStringProvider);
+
+  late final ayerString = ref.watch(fechaInicialStringProvider);
 
   DateTime? selectedDate;
 
@@ -30,13 +33,20 @@ class _FechaButtonState extends State<FechaButton> {
   Future<void> _selectDate() async {
     final DateTime? pickedDate = await showDatePicker(
       context: context,
-      initialDate: _esPrimeraFecha ? ayer : hoy,
+      initialDate: _esPrimeraFecha ? ayerDateTime.value : hoyDateTime.value,
       firstDate: DateTime(2015),
-      lastDate: hoy,
+      lastDate: DateTime.now(),
     );
 
     setState(() {
       selectedDate = pickedDate;
+      _esPrimeraFecha
+          ? ref
+              .read(fechaInicialStringProvider.notifier)
+              .seleccionarFechaInicial(selectedDate!)
+          : ref
+              .read(fechaFinalStringProvider.notifier)
+              .seleccionarFechaFinal(selectedDate!);
     });
   }
 
@@ -47,8 +57,8 @@ class _FechaButtonState extends State<FechaButton> {
         selectedDate != null
             ? '${selectedDate!.day}/${selectedDate!.month}/${selectedDate!.year}'
             : _esPrimeraFecha
-            ? ayerString
-            : hoyString,
+            ? '${ayerString.value}'
+            : '${hoyString.value}',
         style: TextStyle(
           fontSize: 16,
           color: Colors.black,
