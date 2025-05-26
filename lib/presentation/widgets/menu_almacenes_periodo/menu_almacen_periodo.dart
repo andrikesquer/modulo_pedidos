@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:requisiciones/domain/entities/almacen_ob.dart';
 import 'package:requisiciones/presentation/providers/almacen_seleccionado_provider.dart';
 import 'package:requisiciones/presentation/viewmodels/almacenes_viewmodel.dart';
 import 'package:requisiciones/presentation/widgets/custom_top_menu.dart';
@@ -14,8 +15,8 @@ class MenuAlmacenPeriodo extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final almacenSeleccionado = ref.watch(almacenSeleccionadoProvider);
-    // List<AlmacenOB> almacenes = ref.watch(almacenesFiltradosProvider);
-    final almacenes = ref.watch(almacenesProvider);
+    List<AlmacenOB> almacenesLDB = ref.watch(almacenesFiltradosProvider);
+    final almacenes = ref.read(almacenesProv.notifier).actualizar();
 
     void mostrarMenu(Widget menu) {
       showModalBottomSheet(
@@ -34,11 +35,13 @@ class MenuAlmacenPeriodo extends ConsumerWidget {
         label: Row(
           children: [
             Text(
-              {almacenes}.isEmpty
-                  ? 'Sin almacenes'
-                  : almacenSeleccionado.value == null
-                  ? 'no seleccionado' // ${{almacenes[0]}.id_almacen}. ${almacenes[0].nombre}
-                  : '${almacenSeleccionado.value?.id_almacen}. ${almacenSeleccionado.value?.nombre}',
+              almacenesLDB
+                      .isEmpty // Hay almacenes en persistencia local?
+                  ? 'Sin almacenes' // No hay almacenes en persistencia local
+                  : almacenSeleccionado.value ==
+                      null // Hay un almacén seleccionado?
+                  ? '${almacenesLDB[0].id_almacen}. ${almacenesLDB[0].nombre}' // No lo hay: muestra el primero de la lista
+                  : '${almacenSeleccionado.value?.id_almacen}. ${almacenSeleccionado.value?.nombre}', // Si hay: Lo muestra
               style: TextStyle(
                 fontSize: 14,
                 color: Colors.black,
@@ -49,7 +52,7 @@ class MenuAlmacenPeriodo extends ConsumerWidget {
         ),
         icon: Icon(Icons.location_on, color: theme.primary, size: 24),
         onPressed: () {
-          if ({almacenes}.isNotEmpty) {
+          if (almacenesLDB.isNotEmpty) {
             mostrarMenu(MenuAlmacenes(theme: theme));
           }
         },

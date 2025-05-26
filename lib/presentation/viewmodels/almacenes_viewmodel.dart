@@ -113,7 +113,7 @@ final almacenesVMProvider = ChangeNotifierProvider<AlmacenesViewModel>((ref) {
 
 final almacenesFiltradosProvider = StateProvider<List<AlmacenOB>>((ref) {
   final String inputSearch = ref.watch(inputSearchProvider);
-  final almacenes = ref.watch(almacenServicioProvider).getAllAlmacenesLDB();
+  final List<AlmacenOB> almacenes = ref.watch(almacenServicioProvider).getAllAlmacenesLDB();
   return almacenes
       .where(
         (almacenOB) =>
